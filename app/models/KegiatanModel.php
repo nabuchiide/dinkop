@@ -1,14 +1,16 @@
-<?php 
+<?php
 
-Class KegiatanModel {
+class KegiatanModel
+{
     private $db;
-    
+
     public function __construct()
     {
-        $this->db=new Database;
+        $this->db = new Database;
     }
 
-    public function getAllData(){
+    public function getAllData()
+    {
         $allData = [];
         $this->db->query(" SELECT * FROM kegiatan ORDER BY tanggal DESC ");
         $allData = $this->db->resultset();
@@ -18,19 +20,44 @@ Class KegiatanModel {
                 $status_loop = "Menunggu";
             } else  if ($status_loop == PROCESS) {
                 $status_loop = "Prosess";
-            }else if ($status_loop == FINISH) {
+            } else if ($status_loop == FINISH) {
                 $status_loop = "Selesai";
-            }else if ($status_loop == APPROVE) {
+            } else if ($status_loop == APPROVE) {
                 $status_loop = "Approve";
-            }else{
+            } else {
                 $status_loop = " - ";
             }
             $allData[$i]['status'] = $status_loop;
         }
-        return $allData; 
+        return $allData;
     }
 
-    public function tambahData($data){
+    public function getAllDataStatusWiting()
+    {
+        $allData = [];
+        $this->db->query(" SELECT * FROM kegiatan WHERE status = '" . WAITING . "' ORDER BY tanggal DESC ");
+        $allData = $this->db->resultset();
+        for ($i = 0; $i < count($allData); $i++) {
+            $status_loop = $allData[$i]['status'];
+            if ($status_loop == WAITING) {
+                $status_loop = "Menunggu";
+            } else  if ($status_loop == PROCESS) {
+                $status_loop = "Prosess";
+            } else if ($status_loop == FINISH) {
+                $status_loop = "Selesai";
+            } else if ($status_loop == APPROVE) {
+                $status_loop = "Approve";
+            } else {
+                $status_loop = " - ";
+            }
+            $allData[$i]['status'] = $status_loop;
+        }
+        return $allData;
+    }
+
+
+    public function tambahData($data)
+    {
         echo "<pre>";
         print_r($data);
         echo "</pre>";
@@ -50,7 +77,8 @@ Class KegiatanModel {
         return $this->db->rowCount();
     }
 
-    public function ubahData($data){
+    public function ubahData($data)
+    {
 
         $query = " UPDATE kegiatan
                     SET
@@ -72,8 +100,9 @@ Class KegiatanModel {
         return $this->db->rowCount();
     }
 
-    public function ubahStatus($id, $status){
-         $query = " UPDATE kegiatan
+    public function ubahStatus($id, $status)
+    {
+        $query = " UPDATE kegiatan
                     SET
                         status   =:status
                     WHERE
@@ -87,13 +116,15 @@ Class KegiatanModel {
         return $this->db->rowCount();
     }
 
-    public function getOneData($id){
+    public function getOneData($id)
+    {
         $this->db->query(" SELECT * from kegiatan WHERE id =:id ");
         $this->db->bind('id', $id);
         return $this->db->single();
     }
 
-    public function hapusData($id){
+    public function hapusData($id)
+    {
         $query = " DELETE FROM kegiatan WHERE id =:id;
                  ";
         $this->db->query($query);
@@ -102,29 +133,33 @@ Class KegiatanModel {
         return $this->db->rowCount();
     }
 
-    public function getKegiatanStatusPajak(){
+    public function getKegiatanStatusPajak()
+    {
         $allData = [];
         $this->db->query(" SELECT * FROM kegiatan WHERE status = 1 ORDER BY tanggal DESC ");
-        $allData = $this->db->resultset();
-        return $allData; 
-    }
-
-    public function getKegiatanStatusAnggaran(){
-        $allData = [];
-        $this->db->query(" SELECT * FROM kegiatan WHERE status = 0 ORDER BY tanggal DESC ");
-        $allData = $this->db->resultset();
-        return $allData; 
-    }
-
-    public function getDataByDate($month){
-        $allData = [];
-        $this->db->query(" SELECT * FROM kegiatan WHERE tanggal Like :month ");
-        $this->db->bind('month', $month.'%');
         $allData = $this->db->resultset();
         return $allData;
     }
 
-    public function getCountKegiatan(){
+    public function getKegiatanStatusAnggaran()
+    {
+        $allData = [];
+        $this->db->query(" SELECT * FROM kegiatan WHERE status = 0 ORDER BY tanggal DESC ");
+        $allData = $this->db->resultset();
+        return $allData;
+    }
+
+    public function getDataByDate($month)
+    {
+        $allData = [];
+        $this->db->query(" SELECT * FROM kegiatan WHERE tanggal Like :month ");
+        $this->db->bind('month', $month . '%');
+        $allData = $this->db->resultset();
+        return $allData;
+    }
+
+    public function getCountKegiatan()
+    {
         $query = "
                 SELECT 
                     count(*) as total_count 
