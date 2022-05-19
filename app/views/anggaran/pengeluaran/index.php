@@ -53,7 +53,6 @@ $dataKegiatan       = $data['kegiatan'];
                                 <th>Tanggal</th>
                                 <th>Keterngan</th>
                                 <th>Anggaran</th>
-                                <th>Potongan(%)</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1, user-scalable=no">
     <title><?= $data['judul'];?></title>
 
-    <!-- <link rel="shortcut icon" href="assets/images/favicon-logo.ico"> -->
+    <link rel="shortcut icon" href="assets/images/favicon-logo.ico">
     <!-- <link rel="shortcut icon" href="<?= BASEURL ?>/assets/images/bappeda-logo.png"> -->
     
     <!-- jvectormap -->

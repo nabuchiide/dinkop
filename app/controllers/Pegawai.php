@@ -95,7 +95,7 @@ class Pegawai extends Controller
 
     public function convertJabatan($jabatan)
     {
-        if ($jabatan == "Kepala Bagian") {
+        if ($jabatan == "PPTK") {
             $jabatan = KEPALA;
         } else  if ($jabatan == "Bendahara") {
             $jabatan = BENDAHARA;

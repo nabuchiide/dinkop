@@ -1,13 +1,13 @@
 <?php
-class Anggaran extends Controller
+class Pengeluaran extends Controller
 {
     public function index()
     {
-        $data['judul'] = 'Anggaran';
+        $data['judul'] = 'Pengeluaran';
         $data['kegiatan'] = $this->model("KegiatanModel")->getAllDataStatusWiting();
         $this->view('templates/header', $data);
         $this->view('templates/sidemenu');
-        $this->view('anggaran/index', $data);
+        $this->view('anggaran/pengeluaran/index', $data);
         $this->view('templates/footer');
     }
 }

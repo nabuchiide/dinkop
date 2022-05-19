@@ -21,7 +21,7 @@ class UserModel
             } else if ($user_type_loop == BENDAHAR_USR) {
                 $user_type_loop = "Bendahara";
             } else if ($user_type_loop == KEPALA_USR) {
-                $user_type_loop = "Kepala";
+                $user_type_loop = "PPTK";
             } else if ($user_type_loop == MASTER_USR) {
                 $user_type_loop = "Master";
             } else {
@@ -32,7 +32,7 @@ class UserModel
         return $allData;
     }
 
-    public function getOneData($id)
+    public function getOneDataById($id)
     {
         $this->db->query(" SELECT * from user WHERE id =:id  ");
         $this->db->bind('id', $id);
@@ -64,7 +64,7 @@ class UserModel
                         user_type   =:user_type,
                         no_pegawai  =:no_pegawai 
                     WHERE 
-                        id=:id
+                        id  =:id
                 ";
 
         $this->db->query($query);

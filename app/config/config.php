@@ -25,3 +25,7 @@ define('WAITING','0');
 define('PROCESS','1');
 define('FINISH','2');
 define('APPROVE','3');
+
+//tipe Anggaran
+define('UANG_MASUK','1');
+define('UANG_KELUAR','0');

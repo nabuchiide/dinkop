@@ -18,14 +18,14 @@
                 <div class="text-left offset-md-1">
                     <!--<a href="index.html" class="logo"><i class="mdi mdi-assistant"></i>Zoter</a>-->
                     <div class="row justify-content-md-left">
-                        <div class="col-md-4">
+                        <div class="col-md-2 mt-1">
                             <a href="index.html" class="logo mt-1">
-                                <img src="<?= BASEURL ?>/assets/images/logo-koperasi.png" height="65" alt="logo">
+                                <img src="<?= BASEURL ?>/assets/images/bappeda-logo.png" height="50" alt="logo">
                             </a>
                         </div>
-                        <div class="col-md-5 mt-0 mb-1 text-white">
+                        <div class="col-md-7 mt-0 mb-1 text-white">
                             <h4 class="mb-0">DINKOP</h4>
-                            <h6 class="mt-0">Dinas Koperasi</h6>
+                            <h6 class="mt-0" style="font-size: 1rem;">Dinas Koperasi dan UMKN</h6>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,8 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-bullseye"></i> <span> Kegiatan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="<?= BASEURL ?>/kegiatan">Kegitan</a></li>
-                                <li><a href="<?= BASEURL ?>/anggaran">Anggaran</a></li>
+                                <li><a href="<?= BASEURL ?>/pemasukan">Pemasukan</a></li>
+                                <li><a href="<?= BASEURL ?>/pengeluaran">Pengeluaran</a></li>
                             </ul>
                         </li>
 

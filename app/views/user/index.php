@@ -48,7 +48,7 @@
                                 <!-- <input class="form-control" type="text" value="" id="user_type" name="user_type"> -->
                                 <select class="form-control" id="user_type" name="user_type">
                                     <option value="">Select Type</option>
-                                    <option value="<?= KEPALA_USR ?>">Kepala Bagian</option>
+                                    <option value="<?= KEPALA_USR ?>">PPTK</option>
                                     <option value="<?= BENDAHAR_USR ?>">Bendahara</option>
                                     <option value="<?= ADMIN_USR ?>">Admin</option>
                                 </select>
@@ -207,6 +207,9 @@
 
                     $(".card-body form").attr('action', '<?= BASEURL; ?>/user/ubah')
                     $('.card-body form button[type=submit]').html('Ubah Data')
+                },
+                error: function(){
+                    console.log("GAGAL");
                 }
             })
         })
