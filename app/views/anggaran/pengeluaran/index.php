@@ -46,13 +46,18 @@ $dataKegiatan       = $data['kegiatan'];
             <div id="message"></div>
             <div class="card">
                 <div class="card-body">
+                    <div class="col-sm-2">
+                        <button class="btn btn-secondary waves-effect waves-light" id="button_tambah" onclick="tambahDataElement('0')" type="button"> Tambah Data </button>
+                    </div>
+                    <br>
                     <table class="table table-bordered data-table-format" width="100%">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Keterngan</th>
-                                <th>Anggaran</th>
+                                <th>Nominal</th>
+                                <th>Nomor Rekening</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -126,6 +131,8 @@ $dataKegiatan       = $data['kegiatan'];
             $("#tanggal_kegiatan").val(tanggal);
             $("#tanggal_table_anggaran").html(tanggal);
 
+            reloadTabelAnggaran(id, tanggal);
+
             if (status != 0) {
                 $("#form-anggaran").hide();
                 $(".generate-status").hide();
@@ -140,6 +147,86 @@ $dataKegiatan       = $data['kegiatan'];
     });
 
     function reloadTabelAnggaran(id, tanggal) {
-        
+        $.ajax({
+            url: '<?= BASEURL; ?>/pengeluaran/getByKegitanAnggaran',
+            data: {
+                id: id
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(data) {
+                var data_load = '';
+                const num = 0;
+                console.log(data);
+                if (data.length != 0) {
+
+                    for (let index = 0; index < data.length; index++) {
+                        num++;
+                        var inner_data = "save_" + index;
+                        var function_save = "saveDataElement('" + inner_data + "')";
+                        const element = data[index];
+                        data_load += '<tr>'
+                        data_load += '    <td>' + num + '</td>'
+                        data_load += '    <td class="dataInput"><input class="form-control" value="' + data.tanggal + '" type="date" name="tanggal" id="" placeholder="tanggal"></td>'
+                        data_load += '    <td class="dataInput"><input class="form-control" value="' + data.keterangan + '" type="text" name="keterangan" id="" placeholder="keterangan"></td>'
+                        data_load += '    <td class="dataInput"><input class="form-control" value="' + data.nominal + '" type="number" name="nominal" id="" placeholder="nominal"></td>'
+                        data_load += '    <td class="dataInput"><input class="form-control" value="' + data.no_rekening + '" type="text" name="no_rekening" id="" placeholder="nomor rekening"></td>'
+                        data_load += '    <td class="dataInput"><button class="save btn btn-primary waves-effect waves-light" id="' + inner_data + '" onclick="' + function_save + '">Simpan</button></td>'
+                        data_load += '</tr>'
+                    }
+                }
+
+                $('#resultAnggaran').html(data_load);
+            },
+            error: function() {
+                console.log("ERROR");
+            }
+        });
+    }
+
+    function saveDataElement(id) {
+        var data = document.getElementById(id).parentElement.parentElement;
+        const dataLength = document.getElementById(id).parentElement.parentElement.firstChild;
+        const dataLength1 = document.getElementById(id).parentElement.parentElement.childNodes;
+
+        for (let i = 0; i < dataLength1.length; i++) {
+            const element = dataLength1[i];
+            if (element.children != undefined) {
+                if (element.children.length != 0) {
+
+                    for (let j = 0; j < element.children.length; j++) {
+                        const element01 = element.children[j];
+                        if (element01.tagName == "INPUT") {
+                            element01_name = element01.name;
+                            element01_value = element01.value;
+                            console.log("element name :: => " + element01_name + "   ||| element_value :: => " + element01_value);
+
+                            // var inp = document.createElement('input')
+                            // inp.setAttribute('type', 'text');
+                            // inp.setAttribute('name', element01_name)
+                            // inp.setAttribute('value', element01_value)
+                            // form_costume.append(inp)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function tambahDataElement(id) {
+        id = parseInt(id) + 1
+        var inner_data = "tambah_" + id;
+        var function_save = "saveDataElement('" + inner_data + "')";
+        var data_load = '';
+        data_load += '<tr>'
+        data_load += '    <td bgcolor="SteelBlue"></td>'
+        data_load += '    <td class="dataInput"><input class="form-control" value="' + $("#tanggal_kegiatan").val() + '" type="date" name="tanggal" id="" placeholder="tanggal"></td>'
+        data_load += '    <td class="dataInput"><input class="form-control" value="" type="text" name="keterangan" id="" placeholder="keterangan"></td>'
+        data_load += '    <td class="dataInput"><input class="form-control" value="" type="number" name="nominal" id="" placeholder="nominal"></td>'
+        data_load += '    <td class="dataInput"><input class="form-control" value="" type="text" name="no_rekening" id="" placeholder="nomor rekening"></td>'
+        data_load += '    <td class="dataInput"><button class="save btn btn-primary waves-effect waves-light" id="' + inner_data + '" onclick="' + function_save + '">Simpan</button></td>'
+        data_load += '</tr>'
+        $('#button_tambah').attr('onclick', "tambahDataElement('" + id + "')");
+        $('#resultAnggaran').append(data_load);
     }
 </script>

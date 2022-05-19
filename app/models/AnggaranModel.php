@@ -44,9 +44,6 @@ class AnggaranModel
         $this->db->query(" SELECT * FROM anggaran WHERE id_kegiatan =:id_kegiatan ");
         $this->db->bind('id_kegiatan', $id_kegiatan);
         $allData = $this->db->resultset();
-        for ($i = 0; $i < count($allData); $i++) {
-            $allData[$i]['biaya'] = number_format($allData[$i]['biaya']);
-        }
         return $allData;
     }
 

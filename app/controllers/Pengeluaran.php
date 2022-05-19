@@ -10,4 +10,11 @@ class Pengeluaran extends Controller
         $this->view('anggaran/pengeluaran/index', $data);
         $this->view('templates/footer');
     }
+
+    public function getByKegitanAnggaran()
+    {
+        $allData = [];
+        $allData = $this->model("AnggaranModel")->getDataByIdKegiatan($_POST['id']);
+        echo json_encode($allData);
+    }
 }
