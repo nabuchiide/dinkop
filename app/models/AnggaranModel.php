@@ -38,11 +38,12 @@ class AnggaranModel
         return $allData;
     }
 
-    public function getDataByIdKegiatan($id_kegiatan)
+    public function getDataByIdKegiatan($id_kegiatan, $type_anggaran)
     {
         $allData = [];
-        $this->db->query(" SELECT * FROM anggaran WHERE id_kegiatan =:id_kegiatan ");
+        $this->db->query(" SELECT * FROM anggaran WHERE id_kegiatan =:id_kegiatan && type_anggaran =:type_anggaran");
         $this->db->bind('id_kegiatan', $id_kegiatan);
+        $this->db->bind('type_anggaran', $type_anggaran);
         $allData = $this->db->resultset();
         return $allData;
     }

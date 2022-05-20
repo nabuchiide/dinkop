@@ -80,7 +80,7 @@ CREATE TABLE `kas_masuk` (
 CREATE TABLE `kegiatan` (
   `id` int(4) NOT NULL,
   `nama_kegiatan` varchar(45) NOT NULL,
-  `lokasi` varchar(45) NOT NULL,
+  `organisasi` varchar(45) NOT NULL,
   `tanggal` date NOT NULL,
   `keterangan` text NOT NULL,
   `status` varchar(2) NOT NULL
@@ -90,7 +90,7 @@ CREATE TABLE `kegiatan` (
 -- Dumping data untuk tabel `kegiatan`
 --
 
-INSERT INTO `kegiatan` (`id`, `nama_kegiatan`, `lokasi`, `tanggal`, `keterangan`, `status`) VALUES
+INSERT INTO `kegiatan` (`id`, `nama_kegiatan`, `organisasi`, `tanggal`, `keterangan`, `status`) VALUES
 (1, 'perjalanan dinas', 'yogyakarta', '2022-04-06', '1.234.567', '0'),
 (2, 'Training PNS', 'Karawang', '2022-05-17', 'TESTING', '0');
 

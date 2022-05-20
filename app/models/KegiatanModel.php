@@ -64,11 +64,11 @@ class KegiatanModel
 
         $query = " INSERT INTO kegiatan
                     VALUES
-                    ('', :nama_kegiatan, :lokasi, :tanggal, :keterangan, :status)
+                    ('', :nama_kegiatan, :organisasi, :tanggal, :keterangan, :status)
                 ";
         $this->db->query($query);
         $this->db->bind('nama_kegiatan', $data['nama_kegiatan']);
-        $this->db->bind('lokasi', $data['lokasi']);
+        $this->db->bind('organisasi', $data['organisasi']);
         $this->db->bind('tanggal', $data['tanggal']);
         $this->db->bind('keterangan', $data['keterangan']);
         $this->db->bind('status', '0');
@@ -83,7 +83,7 @@ class KegiatanModel
         $query = " UPDATE kegiatan
                     SET
                         nama_kegiatan   =:nama_kegiatan, 
-                        lokasi          =:lokasi, 
+                        organisasi          =:organisasi, 
                         tanggal         =:tanggal, 
                         keterangan      =:keterangan
                     WHERE
@@ -91,7 +91,7 @@ class KegiatanModel
                 ";
         $this->db->query($query);
         $this->db->bind('nama_kegiatan', $data['nama_kegiatan']);
-        $this->db->bind('lokasi', $data['lokasi']);
+        $this->db->bind('organisasi', $data['organisasi']);
         $this->db->bind('tanggal', $data['tanggal']);
         $this->db->bind('keterangan', $data['keterangan']);
         $this->db->bind('id', $data['id']);

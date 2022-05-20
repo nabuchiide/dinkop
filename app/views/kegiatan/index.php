@@ -35,9 +35,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="example-text-input" class="col-sm-2 col-form-label">Lokasi</label>
+                                <label for="example-text-input" class="col-sm-2 col-form-label">Nama Organisasi</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" value="" id="lokasi" name="lokasi" placeholder="Lokasi Kegiatan">
+                                    <input class="form-control" type="text" value="" id="organisasi" name="organisasi" placeholder="Nama organisasi">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -74,7 +74,7 @@
                                 <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Nama Kegitan</th>
-                                <th>Lokasi</th>
+                                <th>organisasi</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </thead>
@@ -92,7 +92,7 @@
                                                 </span>
                                             </a>
                                         </td>
-                                        <td><?= $data['lokasi']; ?></td>
+                                        <td><?= $data['organisasi']; ?></td>
                                         <td><?= $data['status']; ?></td>
                                         <td>
                                             <a href="<?= BASEURL; ?>/kegiatan/hapus/<?= $data['id']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
@@ -136,8 +136,8 @@
                     <label for="example-text-input" class="col-sm-9 col-form-label" id='nama_kegiatan_detail'></label>
                 </div>
                 <div class="form-group row">
-                    <label for="example-text-input" class="col-sm-3 col-form-label">Lokasi</label>
-                    <label for="example-text-input" class="col-sm-9 col-form-label" id='lokasi_kegiatan_detail'></label>
+                    <label for="example-text-input" class="col-sm-3 col-form-label">organisasi</label>
+                    <label for="example-text-input" class="col-sm-9 col-form-label" id='organisasi_kegiatan_detail'></label>
                 </div>
                 <div class="form-group row">
                     <label for="example-text-input" class="col-sm-3 col-form-label">Tanggal</label>
@@ -176,7 +176,7 @@
                         console.log(data);
                         $('#id_kegiatan').val(data.id);
                         $('#nama_kegiatan').val(data.nama_kegiatan);
-                        $('#lokasi').val(data.lokasi);
+                        $('#organisasi').val(data.organisasi);
                         $('#tanggal').val(data.tanggal);
                         $('#keterangan').val(data.keterangan);
 
@@ -198,7 +198,7 @@
                     success: function(data) {
                         console.log(data);
                         $("#nama_kegiatan_detail").html(": " + data.nama_kegiatan)
-                        $("#lokasi_kegiatan_detail").html(": " + data.lokasi)
+                        $("#organisasi_kegiatan_detail").html(": " + data.organisasi)
                         $("#tanggal_kegiatan_detail").html(": " + data.tanggal)
                         $("#ketrangan_kegiatan_detail").html(": " + data.keterangan)
                     }
@@ -214,7 +214,7 @@
                 $("#message").html(alert_error);
                 return
             }
-            if ($('#lokasi').val() == "") {
+            if ($('#organisasi').val() == "") {
                 $("#message").html(alert_error);
                 return
             }

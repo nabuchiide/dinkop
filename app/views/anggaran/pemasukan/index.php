@@ -70,9 +70,9 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
-                                <th>Nominal</th>
                                 <th>No Rekening</th>
-                                <th>keterangan</th>
+                                <th>Uraian</th>
+                                <th>Debit</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -86,9 +86,9 @@
                                 <tr>
                                     <td><?= $no; ?></td>
                                     <td><?= $pemasukan['tanggal']; ?></td>
-                                    <td><?= $pemasukan['nominal']; ?></td>
                                     <td><?= $pemasukan['no_rekening']; ?></td>
                                     <td><?= $pemasukan['keterangan']; ?></td>
+                                    <td><?= $pemasukan['nominal']; ?></td>
                                     <td>
                                         <a href="<?= BASEURL; ?>/pemasukan/hapus/<?= $pemasukan['id']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
                                             <span>
@@ -148,15 +148,12 @@
 
     function save_data() {
         if ($('#tanggal').val() == "") {
-            $("#message").html(message('gagal', 'diubah atau ditambahkan, Tanggal harus di isi', 'danger',
-                'User'));
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, Tanggal harus di isi', 'danger','Pemasukan'));
             return
 
         }
         if ($('#nominal').val() == "") {
-            $("#message").html(message('gagal', 'diubah atau ditambahkan, nominal harus di isi', 'danger',
-                'User'));
-
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, nominal harus di isi', 'danger','Pemasukan'));
             return
 
         }

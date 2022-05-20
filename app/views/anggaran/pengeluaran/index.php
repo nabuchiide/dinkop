@@ -18,6 +18,8 @@ $dataKegiatan       = $data['kegiatan'];
             <div class="clearfix"></div>
         </div>
     </div>
+    <?php Flasher::flash(); ?>
+    <div id="message"></div>
 
     <div class="row container-fluid">
         <div class="col-lg-8">
@@ -55,9 +57,9 @@ $dataKegiatan       = $data['kegiatan'];
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
-                                <th>Keterngan</th>
-                                <th>Nominal</th>
                                 <th>Nomor Rekening</th>
+                                <th>Uraian</th>
+                                <th>Kredit</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -65,11 +67,16 @@ $dataKegiatan       = $data['kegiatan'];
                         <tbody id="resultAnggaran">
 
                         </tbody>
+                        <tbody id="resultAnggaranEmpty">
+
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row d-flex justify-content-start formSubmitData" style="display: none;" id="formSubmitData"></div>
 </div>
 
 <!-- Modal -->
@@ -131,7 +138,7 @@ $dataKegiatan       = $data['kegiatan'];
             $("#tanggal_kegiatan").val(tanggal);
             $("#tanggal_table_anggaran").html(tanggal);
 
-            reloadTabelAnggaran(id, tanggal);
+            reloadTabelAnggaran(id);
 
             if (status != 0) {
                 $("#form-anggaran").hide();
@@ -146,7 +153,7 @@ $dataKegiatan       = $data['kegiatan'];
 
     });
 
-    function reloadTabelAnggaran(id, tanggal) {
+    function reloadTabelAnggaran(id) {
         $.ajax({
             url: '<?= BASEURL; ?>/pengeluaran/getByKegitanAnggaran',
             data: {
@@ -154,9 +161,17 @@ $dataKegiatan       = $data['kegiatan'];
             },
             method: 'post',
             dataType: 'json',
+            beforeSend: function() {
+                $.blockUI({
+                    message: null
+                });
+            },
+            complete: function() {
+                $.unblockUI();
+            },
             success: function(data) {
                 var data_load = '';
-                const num = 0;
+                num = 0;
                 console.log(data);
                 if (data.length != 0) {
 
@@ -166,11 +181,11 @@ $dataKegiatan       = $data['kegiatan'];
                         var function_save = "saveDataElement('" + inner_data + "')";
                         const element = data[index];
                         data_load += '<tr>'
-                        data_load += '    <td>' + num + '</td>'
-                        data_load += '    <td class="dataInput"><input class="form-control" value="' + data.tanggal + '" type="date" name="tanggal" id="" placeholder="tanggal"></td>'
-                        data_load += '    <td class="dataInput"><input class="form-control" value="' + data.keterangan + '" type="text" name="keterangan" id="" placeholder="keterangan"></td>'
-                        data_load += '    <td class="dataInput"><input class="form-control" value="' + data.nominal + '" type="number" name="nominal" id="" placeholder="nominal"></td>'
-                        data_load += '    <td class="dataInput"><input class="form-control" value="' + data.no_rekening + '" type="text" name="no_rekening" id="" placeholder="nomor rekening"></td>'
+                        data_load += '    <td><input class="form-control" value="' + element.id + '" type="hidden" name="id" id="" >' + num + '</td>'
+                        data_load += '    <td class="dataInput"><input class="form-control" value="' + element.tanggal + '" type="date" name="tanggal" id="" placeholder="tanggal" readonly="readonly"></td>'
+                        data_load += '    <td class="dataInput"><input class="form-control" value="' + element.no_rekening + '" type="text" name="no_rekening" id="" placeholder="nomor rekening"></td>'
+                        data_load += '    <td class="dataInput"><input class="form-control" value="' + element.keterangan + '" type="text" name="keterangan" id="" placeholder="keterangan" required ></td>'
+                        data_load += '    <td class="dataInput"><input class="form-control" value="' + element.nominal + '" type="number" name="nominal" id="" placeholder="nominal" required ></td>'
                         data_load += '    <td class="dataInput"><button class="save btn btn-primary waves-effect waves-light" id="' + inner_data + '" onclick="' + function_save + '">Simpan</button></td>'
                         data_load += '</tr>'
                     }
@@ -185,9 +200,14 @@ $dataKegiatan       = $data['kegiatan'];
     }
 
     function saveDataElement(id) {
-        var data = document.getElementById(id).parentElement.parentElement;
+        var data_id = document.getElementById(id).parentElement.parentElement;
+        // console.log(data);
         const dataLength = document.getElementById(id).parentElement.parentElement.firstChild;
         const dataLength1 = document.getElementById(id).parentElement.parentElement.childNodes;
+        var isEdit = false;
+        var form_costume = document.createElement("form");
+        form_costume.setAttribute("id", "insert-pengeluaran");
+        form_costume.setAttribute("method", "post");
 
         for (let i = 0; i < dataLength1.length; i++) {
             const element = dataLength1[i];
@@ -201,15 +221,73 @@ $dataKegiatan       = $data['kegiatan'];
                             element01_value = element01.value;
                             console.log("element name :: => " + element01_name + "   ||| element_value :: => " + element01_value);
 
-                            // var inp = document.createElement('input')
-                            // inp.setAttribute('type', 'text');
-                            // inp.setAttribute('name', element01_name)
-                            // inp.setAttribute('value', element01_value)
-                            // form_costume.append(inp)
+                            var inp = document.createElement('input')
+                            inp.setAttribute('type', 'text');
+                            inp.setAttribute('name', element01_name)
+                            inp.setAttribute('value', element01_value)
+                            form_costume.append(inp)
+                            if ((element01_name == 'id') && (parseInt(element01_value) > 0)) {
+                                isEdit = true;
+                            }
+                            if (!validationData(element01_name, element01_value)) return;
                         }
                     }
                 }
             }
+        }
+
+        if (!isEdit) {
+            url_send_data = "<?= BASEURL ?>/pengeluaran/tambah";
+        } else {
+            url_send_data = "<?= BASEURL ?>/pengeluaran/ubah";
+        }
+        // form_costume.setAttribute("action", url_send_data);
+        console.log(url_send_data);
+
+        var inp = document.createElement('input')
+        inp.setAttribute('type', 'text');
+        inp.setAttribute('name', 'id_kegiatan')
+        inp.setAttribute('value', $("#id_kegiatan").val())
+        form_costume.append(inp)
+
+        $('#formSubmitData').append(form_costume)
+
+        $.ajax({
+            url: url_send_data,
+            data: $('#insert-pengeluaran').serialize(),
+            method: 'post',
+            beforeSend: function() {
+                $.blockUI({
+                    message: null,
+                });
+            },
+            complete: function() {
+                $.unblockUI();
+            },
+            success: function(result) {
+                $("#message").html(message('sukses', 'diubah atau ditambahkan', 'success', 'pemasukan'));
+                $('#insert-pengeluaran').remove();
+                data_id.remove();
+                reloadTabelAnggaran($("#id_kegiatan").val());
+            },
+            error: function() {
+                console.log("GAGAL");
+            }
+        });
+
+    }
+
+    function validationData(elementName, elementValue) {
+        if (elementName == 'keterangan' && elementValue == '') {
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, Keterangan harus di isi', 'danger', 'pemasukan'));
+            return false;
+
+        } else if (elementName == 'nominal' && (elementValue == '' || elementValue < 1)) {
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, Kredit harus di isi', 'danger', 'pemasukan'));
+            return false;
+
+        } else {
+            return true;
         }
     }
 
@@ -219,14 +297,25 @@ $dataKegiatan       = $data['kegiatan'];
         var function_save = "saveDataElement('" + inner_data + "')";
         var data_load = '';
         data_load += '<tr>'
-        data_load += '    <td bgcolor="SteelBlue"></td>'
-        data_load += '    <td class="dataInput"><input class="form-control" value="' + $("#tanggal_kegiatan").val() + '" type="date" name="tanggal" id="" placeholder="tanggal"></td>'
-        data_load += '    <td class="dataInput"><input class="form-control" value="" type="text" name="keterangan" id="" placeholder="keterangan"></td>'
-        data_load += '    <td class="dataInput"><input class="form-control" value="" type="number" name="nominal" id="" placeholder="nominal"></td>'
+        data_load += '    <td bgcolor="SteelBlue"><input class="form-control" value="0" type="hidden" name="id" id="" placeholder="tanggal"></td>'
+        data_load += '    <td class="dataInput"><input class="form-control" value="' + $("#tanggal_kegiatan").val() + '" type="date" name="tanggal" id="" placeholder="tanggal" readonly="readonly"></td>'
         data_load += '    <td class="dataInput"><input class="form-control" value="" type="text" name="no_rekening" id="" placeholder="nomor rekening"></td>'
+        data_load += '    <td class="dataInput"><input class="form-control" value="" type="text" name="keterangan" id="" placeholder="keterangan" required></td>'
+        data_load += '    <td class="dataInput"><input class="form-control" value="" type="number" name="nominal" id="" placeholder="nominal" required></td>'
         data_load += '    <td class="dataInput"><button class="save btn btn-primary waves-effect waves-light" id="' + inner_data + '" onclick="' + function_save + '">Simpan</button></td>'
         data_load += '</tr>'
         $('#button_tambah').attr('onclick', "tambahDataElement('" + id + "')");
-        $('#resultAnggaran').append(data_load);
+        $('#resultAnggaranEmpty').append(data_load);
+    }
+
+    function message(pesan, aksi, tipe, data) {
+        allert_load = "";
+        allert_load += '<div class="alert alert-' + tipe + ' alert-dismissible fade show" role="alert">'
+        allert_load += 'Data ' + data + ' <strong>' + pesan + ' </strong> ' + aksi
+        allert_load += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+        allert_load += '<span aria-hidden="true">&times;</span>'
+        allert_load += '</button>'
+        allert_load += '</div>'
+        return allert_load
     }
 </script>
