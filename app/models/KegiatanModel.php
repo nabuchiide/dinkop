@@ -133,14 +133,6 @@ class KegiatanModel
         return $this->db->rowCount();
     }
 
-    public function getKegiatanStatusPajak()
-    {
-        $allData = [];
-        $this->db->query(" SELECT * FROM kegiatan WHERE status = 1 ORDER BY tanggal DESC ");
-        $allData = $this->db->resultset();
-        return $allData;
-    }
-
     public function getKegiatanStatusAnggaran()
     {
         $allData = [];

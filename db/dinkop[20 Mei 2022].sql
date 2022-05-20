@@ -57,30 +57,6 @@ INSERT INTO `anggaran` (`id`, `tanggal`, `nominal`, `no_rekening`, `keterangan`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kas_keluar`
---
-
-CREATE TABLE `kas_keluar` (
-  `id` int(4) NOT NULL,
-  `uraian` text NOT NULL,
-  `kredit` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `kas_masuk`
---
-
-CREATE TABLE `kas_masuk` (
-  `id` int(4) NOT NULL,
-  `uraian` text NOT NULL,
-  `debit` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `kegiatan`
 --
 
@@ -155,18 +131,6 @@ ALTER TABLE `anggaran`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kas_keluar`
---
-ALTER TABLE `kas_keluar`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `kas_masuk`
---
-ALTER TABLE `kas_masuk`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indeks untuk tabel `kegiatan`
 --
 ALTER TABLE `kegiatan`
@@ -193,18 +157,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `anggaran`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT untuk tabel `kas_keluar`
---
-ALTER TABLE `kas_keluar`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `kas_masuk`
---
-ALTER TABLE `kas_masuk`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `kegiatan`
