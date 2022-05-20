@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Bulan Mei 2022 pada 13.41
+-- Waktu pembuatan: 20 Bulan Mei 2022 pada 03.50
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.4.23
 
@@ -20,6 +20,39 @@ SET time_zone = "+00:00";
 --
 -- Database: `dinkop`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `anggaran`
+--
+
+CREATE TABLE `anggaran` (
+  `id` int(10) NOT NULL,
+  `tanggal` varchar(45) NOT NULL,
+  `nominal` int(20) NOT NULL,
+  `no_rekening` varchar(25) NOT NULL,
+  `keterangan` text NOT NULL,
+  `type_anggaran` int(2) NOT NULL,
+  `id_kegiatan` int(4) NOT NULL,
+  `status` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `anggaran`
+--
+
+INSERT INTO `anggaran` (`id`, `tanggal`, `nominal`, `no_rekening`, `keterangan`, `type_anggaran`, `id_kegiatan`, `status`) VALUES
+(1, '2022-05-19', 10000, '14578', 'test Edit Pengeluaran', 0, 2, 0),
+(2, '2022-05-19', 10, '10', 'tes3', 1, 0, 0),
+(3, '2022-05-19', 20, '20', 'test3', 1, 0, 0),
+(4, '2022-05-17', 78000, '', 'test Edit Pengeluaran beli makanan', 0, 2, 0),
+(5, '2022-05-17', 700000, '', 'Konsumsi', 0, 2, 0),
+(6, '2022-05-17', 1000, '', 'test Edit Pengeluaran2', 0, 2, 0),
+(7, '2022-04-06', 1000000, '112233', 'tunjangan hari raya', 0, 1, 0),
+(8, '2022-04-06', 3000, '', 'Konsumsi', 0, 1, 0),
+(9, '2022-04-06', 51110, '', 'Test Keterangan', 0, 1, 0),
+(10, '2022-04-06', 25000, '145782', 'makna pak ujang', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -65,8 +98,8 @@ CREATE TABLE `kegiatan` (
 --
 
 INSERT INTO `kegiatan` (`id`, `nama_kegiatan`, `organisasi`, `tanggal`, `keterangan`, `status`) VALUES
-(1, 'perjalanan dinas', 'yogyakarta', '2022-04-06', '1.234.567', '0'),
-(2, 'Training PNS', 'Karawang', '2022-05-17', 'TESTING', '0');
+(1, 'perjalanan dinas', 'mapala', '2022-04-06', '1.234.567', '0'),
+(2, 'Training PNS', 'dinkop', '2022-05-17', 'TESTING', '0');
 
 -- --------------------------------------------------------
 
@@ -109,11 +142,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_name`, `password`, `user_type`, `id`, `no_pegawai`) VALUES
-('winda', '1', '1', 2, '1510631170065');
+('winda', '2', '1', 2, '1510631170065');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `anggaran`
+--
+ALTER TABLE `anggaran`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `kas_keluar`
@@ -148,6 +187,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `anggaran`
+--
+ALTER TABLE `anggaran`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `kas_keluar`
