@@ -50,9 +50,6 @@ class AnggaranModel
 
     public function tambahData($data)
     {
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
         $query = " INSERT INTO 
                 anggaran(id, tanggal, nominal, no_rekening, keterangan, type_anggaran, id_kegiatan, status)  
                 VALUES ('', :tanggal, :nominal, :no_rekening, :keterangan, :type_anggaran, :id_kegiatan, :status)
@@ -149,4 +146,83 @@ class AnggaranModel
         $this->db->execute();
         return $this->db->rowCount();
     }
+
+    /* Laporan */
+    public function getLaporan($type_anggaran)
+    {
+        $query = "  SELECT 
+                        a.*, 
+                        k.nama_kegiatan, 
+                        CASE 
+                            WHEN a.type_anggaran = 0 THEN a.nominal 
+                            ELSE 0 
+                        END as kredit, 
+                        CASE 
+                            WHEN a.type_anggaran = 1 THEN a.nominal 
+                            ELSE 0 
+                        END as debit 
+                    FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id 
+                    WHERE 
+                        a.tanggal BETWEEN CAST(DATE_ADD(NOW(), INTERVAL -3 MONTH) AS DATE) AND CAST(NOW() AS DATE) 
+                        AND type_anggaran in (:type_anggaran)";
+        $this->db->query($query);
+        $this->db->bind('type_anggaran', $type_anggaran);
+        $allData = $this->db->resultset();
+        for ($i = 0; $i < count($allData); $i++) {
+            $status_loop = $allData[$i]["status"];
+            if ($status_loop == WAITING) {
+                $status_loop = "Proses Pemerikasaan";
+            } else if ($status_loop == PROCESS) {
+                $status_loop = "Telah di Setujui Bendahara";
+            } else if ($status_loop == FINISH) {
+                $status_loop = "Telah di Setuju PPTK";
+            } else {
+                $status_loop = " - ";
+            }
+            $allData[$i]['status'] = $status_loop;
+            $allData[$i]['queryData'] = $query;
+        }
+        return $allData;
+    }
+
+    public function getLaporanSummary()
+    {
+        $query = "  SELECT 
+                        a.*, 
+                        k.nama_kegiatan, 
+                        CASE 
+                            WHEN a.type_anggaran = 0 THEN a.nominal 
+                            ELSE '-'
+                        END as kredit, 
+                        CASE 
+                            WHEN a.type_anggaran = 1 THEN a.nominal 
+                            ELSE '-' 
+                        END as debit 
+                    FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id 
+                    WHERE 
+                        a.tanggal BETWEEN CAST(DATE_ADD(NOW(), INTERVAL -3 MONTH) AS DATE) AND CAST(NOW() AS DATE) 
+                        AND type_anggaran in ('1','0')";
+        $this->db->query($query);
+        $allData = $this->db->resultset();
+        for ($i = 0; $i < count($allData); $i++) {
+            $status_loop = $allData[$i]["status"];
+            if ($status_loop == WAITING) {
+                $status_loop = "Proses Pemerikasaan";
+            } else if ($status_loop == PROCESS) {
+                $status_loop = "Telah di Setujui Bendahara";
+            } else if ($status_loop == FINISH) {
+                $status_loop = "Telah di Setuju PPTK";
+            } else {
+                $status_loop = " - ";
+            }
+            $allData[$i]['status'] = $status_loop;
+            $allData[$i]['queryData'] = $query;
+        }
+        return $allData;
+    }
 }
+
+/* define('WAITING','0');
+define('PROCESS','1');
+define('FINISH','2');
+define('APPROVE','3'); */

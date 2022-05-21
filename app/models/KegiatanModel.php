@@ -22,9 +22,7 @@ class KegiatanModel
                 $status_loop = "Prosess";
             } else if ($status_loop == FINISH) {
                 $status_loop = "Selesai";
-            } else if ($status_loop == APPROVE) {
-                $status_loop = "Approve";
-            } else {
+            }  else {
                 $status_loop = " - ";
             }
             $allData[$i]['status'] = $status_loop;
@@ -45,8 +43,6 @@ class KegiatanModel
                 $status_loop = "Prosess";
             } else if ($status_loop == FINISH) {
                 $status_loop = "Selesai";
-            } else if ($status_loop == APPROVE) {
-                $status_loop = "Approve";
             } else {
                 $status_loop = " - ";
             }

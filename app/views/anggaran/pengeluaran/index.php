@@ -204,7 +204,7 @@ $dataKegiatan       = $data['kegiatan'];
         // console.log(data);
         const dataLength = document.getElementById(id).parentElement.parentElement.firstChild;
         const dataLength1 = document.getElementById(id).parentElement.parentElement.childNodes;
-        var isEdit = false;
+        isEdit = false;
         var form_costume = document.createElement("form");
         form_costume.setAttribute("id", "insert-pengeluaran");
         form_costume.setAttribute("method", "post");

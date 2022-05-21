@@ -24,7 +24,6 @@ define('MASTER_USR','0');
 define('WAITING','0');
 define('PROCESS','1');
 define('FINISH','2');
-define('APPROVE','3');
 
 //tipe Anggaran
 define('UANG_MASUK','1');
