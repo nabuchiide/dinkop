@@ -47,6 +47,18 @@ class Pemasukan extends Controller
         }
     }
 
+    public function hapus($id){
+        if ($this->model("AnggaranModel")->hapusData($id) > 0) {
+            Flasher::setFlash('berhasil', 'dihapus', 'success', 'Pemasukan');
+            header('Location: ' . BASEURL . '/pemasukan');
+            exit;
+        } else {
+            Flasher::setFlash('gagal', 'dihapus', 'danger', 'Pemasukan');
+            header('Location: ' . BASEURL . '/pemasukan');
+            exit;
+        }
+    }
+
     public function getUbah()
     {
         echo json_encode($this->model('AnggaranModel')->getOneData($_POST['id']));

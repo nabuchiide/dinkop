@@ -150,7 +150,6 @@ $dataKegiatan       = $data['kegiatan'];
 
             $("#cardAnggaran").show();
         })
-
     });
 
     function reloadTabelAnggaran(id) {
@@ -177,16 +176,20 @@ $dataKegiatan       = $data['kegiatan'];
 
                     for (let index = 0; index < data.length; index++) {
                         num++;
+                        const element = data[index];
                         var inner_data = "save_" + index;
                         var function_save = "saveDataElement('" + inner_data + "')";
-                        const element = data[index];
+                        var function_connfirmation = "hapusData(" + element.id + ");"
                         data_load += '<tr>'
                         data_load += '    <td><input class="form-control" value="' + element.id + '" type="hidden" name="id" id="" >' + num + '</td>'
                         data_load += '    <td class="dataInput"><input class="form-control" value="' + element.tanggal + '" type="date" name="tanggal" id="" placeholder="tanggal" readonly="readonly"></td>'
                         data_load += '    <td class="dataInput"><input class="form-control" value="' + element.no_rekening + '" type="text" name="no_rekening" id="" placeholder="nomor rekening"></td>'
                         data_load += '    <td class="dataInput"><input class="form-control" value="' + element.keterangan + '" type="text" name="keterangan" id="" placeholder="keterangan" required ></td>'
                         data_load += '    <td class="dataInput"><input class="form-control" value="' + element.nominal + '" type="number" name="nominal" id="" placeholder="nominal" required ></td>'
-                        data_load += '    <td class="dataInput"><button class="save btn btn-primary waves-effect waves-light" id="' + inner_data + '" onclick="' + function_save + '">Simpan</button></td>'
+                        data_load += '    <td class="dataInput">'
+                        data_load += '          <button class="getHapus btn btn-danger waves-effect waves-light" data-id="' + element.id + '" onclick="' + function_connfirmation + '"><span>Hapus</span></button>'
+                        data_load += '          <button class="save btn btn-primary waves-effect waves-light" id="' + inner_data + '" onclick="' + function_save + '">Simpan</button>'
+                        data_load += '    </td>'
                         data_load += '</tr>'
                     }
                 }
@@ -197,6 +200,41 @@ $dataKegiatan       = $data['kegiatan'];
                 console.log("ERROR");
             }
         });
+    }
+
+    function hapusData(id) {
+        let isExecuted = confirm("Yakin?");
+        console.log(isExecuted);
+        if (isExecuted) {
+            $.ajax({
+                url: '<?= BASEURL ?>/pengeluaran/hapus',
+                data: {
+                    id: id
+                },
+                method: 'post',
+                dataType: 'json',
+                beforeSend: function() {
+                    $.blockUI({
+                        message: null
+                    });
+                },
+                complete: function() {
+                    $.unblockUI();
+                },
+                success: function(data) {
+                    if (data > 0) {
+                        $("#message").html(message('berhasil', 'dihapus', 'success', 'pengeluaran'));
+                    } else {
+                        $("#message").html(message('gagal', 'dihapus', 'danger', 'pengeluaran'));
+                    }
+                    reloadTabelAnggaran($("#id_kegiatan").val());
+
+                },
+                error: function(data) {
+                    console.log("GAGAL");
+                }
+            })
+        }
     }
 
     function saveDataElement(id) {
@@ -277,13 +315,19 @@ $dataKegiatan       = $data['kegiatan'];
 
     }
 
+    function removeElement(id) {
+        var data_id = document.getElementById(id).parentElement.parentElement;
+        data_id.remove();
+        $("#message").html(message('berhasil', 'dihapus', 'success', 'pengeluaran'));
+    }
+
     function validationData(elementName, elementValue) {
         if (elementName == 'keterangan' && elementValue == '') {
-            $("#message").html(message('gagal', 'diubah atau ditambahkan, Keterangan harus di isi', 'danger', 'pemasukan'));
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, Keterangan harus di isi', 'danger', 'pengeluaran'));
             return false;
 
         } else if (elementName == 'nominal' && (elementValue == '' || elementValue < 1)) {
-            $("#message").html(message('gagal', 'diubah atau ditambahkan, Kredit harus di isi', 'danger', 'pemasukan'));
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, Kredit harus di isi', 'danger', 'pengeluaran'));
             return false;
 
         } else {
@@ -295,6 +339,7 @@ $dataKegiatan       = $data['kegiatan'];
         id = parseInt(id) + 1
         var inner_data = "tambah_" + id;
         var function_save = "saveDataElement('" + inner_data + "')";
+        var function_remove = "removeElement('" + inner_data + "')";
         var data_load = '';
         data_load += '<tr>'
         data_load += '    <td bgcolor="SteelBlue"><input class="form-control" value="0" type="hidden" name="id" id="" placeholder="tanggal"></td>'
@@ -302,7 +347,10 @@ $dataKegiatan       = $data['kegiatan'];
         data_load += '    <td class="dataInput"><input class="form-control" value="" type="text" name="no_rekening" id="" placeholder="nomor rekening"></td>'
         data_load += '    <td class="dataInput"><input class="form-control" value="" type="text" name="keterangan" id="" placeholder="keterangan" required></td>'
         data_load += '    <td class="dataInput"><input class="form-control" value="" type="number" name="nominal" id="" placeholder="nominal" required></td>'
-        data_load += '    <td class="dataInput"><button class="save btn btn-primary waves-effect waves-light" id="' + inner_data + '" onclick="' + function_save + '">Simpan</button></td>'
+        data_load += '    <td class="dataInput">'
+        data_load += '          <button class="btn btn-danger waves-effect waves-light"  onclick="' + function_remove + '"><span>Hapus</span></button>'
+        data_load += '          <button class="save btn btn-primary waves-effect waves-light" id="' + inner_data + '" onclick="' + function_save + '">Simpan</button>'
+        data_load += '    </td>'
         data_load += '</tr>'
         $('#button_tambah').attr('onclick', "tambahDataElement('" + id + "')");
         $('#resultAnggaranEmpty').append(data_load);

@@ -18,7 +18,7 @@ class UserModel
             $user_type_loop = $allData[$i]["user_type"];
             if ($user_type_loop == ADMIN_USR) {
                 $user_type_loop = "Admin";
-            } else if ($user_type_loop == BENDAHAR_USR) {
+            } else if ($user_type_loop == BENDAHARA_USR) {
                 $user_type_loop = "Bendahara";
             } else if ($user_type_loop == KEPALA_USR) {
                 $user_type_loop = "PPTK";

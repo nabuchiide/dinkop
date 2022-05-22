@@ -49,4 +49,11 @@ class Pengeluaran extends Controller
             exit;
         }
     }
+
+    public function hapus()
+    {
+        $id = $_POST['id'];
+        $result = $this->model("AnggaranModel")->hapusData($id);
+        echo json_encode($result);
+    }
 }

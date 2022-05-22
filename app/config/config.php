@@ -16,7 +16,7 @@ define('STAF','3');
 
 //level user
 define('KEPALA_USR','1');
-define('BENDAHAR_USR','2');
+define('BENDAHARA_USR','2');
 define('ADMIN_USR','3');
 define('MASTER_USR','0');
 

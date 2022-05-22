@@ -46,9 +46,9 @@ class User extends Controller
         echo json_encode($this->model("UserModel")->getOneDataById($_POST['id']));
     }
 
-    public function setHapus()
+    public function hapus($id)
     {
-        $id = $_POST['id'];
+        // $id = $_POST['id'];
         if ($this->model("UserModel")->hapusData($id) > 0) {
             Flasher::setFlash('berhasil', 'dihapus', 'success', 'User');
             header('Location: ' . BASEURL . '/user');
