@@ -94,7 +94,7 @@ class AnggaranModel
         return $this->db->rowCount();
     }
 
-    public function ubahStatus($id_kegiatan, $status)
+    public function ubahStatusByIdKegiatan($id_kegiatan, $status)
     {
 
         $query = " UPDATE anggaran
@@ -106,6 +106,23 @@ class AnggaranModel
         $this->db->query($query);
         $this->db->bind('status', $status);
         $this->db->bind('id_kegiatan', $id_kegiatan);
+
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function ubahStatusById($id, $status)
+    {
+
+        $query = " UPDATE anggaran
+                   SET
+                       status      =:status 
+                   WHERE 
+                       id =:id
+           ";
+        $this->db->query($query);
+        $this->db->bind('status', $status);
+        $this->db->bind('id', $id);
 
         $this->db->execute();
         return $this->db->rowCount();
@@ -145,80 +162,6 @@ class AnggaranModel
         $this->db->bind('id_kegiatan', $id_kegiatan);
         $this->db->execute();
         return $this->db->rowCount();
-    }
-
-    /* Laporan */
-    public function getLaporan($type_anggaran)
-    {
-        $query = "  SELECT 
-                        a.*, 
-                        k.nama_kegiatan, 
-                        CASE 
-                            WHEN a.type_anggaran = 0 THEN a.nominal 
-                            ELSE 0 
-                        END as kredit, 
-                        CASE 
-                            WHEN a.type_anggaran = 1 THEN a.nominal 
-                            ELSE 0 
-                        END as debit 
-                    FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id 
-                    WHERE 
-                        a.tanggal BETWEEN CAST(DATE_ADD(NOW(), INTERVAL -3 MONTH) AS DATE) AND CAST(NOW() AS DATE) 
-                        AND type_anggaran in (:type_anggaran)";
-        $this->db->query($query);
-        $this->db->bind('type_anggaran', $type_anggaran);
-        $allData = $this->db->resultset();
-        for ($i = 0; $i < count($allData); $i++) {
-            $status_loop = $allData[$i]["status"];
-            if ($status_loop == WAITING) {
-                $status_loop = "Proses Pemerikasaan";
-            } else if ($status_loop == PROCESS) {
-                $status_loop = "Telah di Setujui Bendahara";
-            } else if ($status_loop == FINISH) {
-                $status_loop = "Telah di Setuju PPTK";
-            } else {
-                $status_loop = " - ";
-            }
-            $allData[$i]['status'] = $status_loop;
-            $allData[$i]['queryData'] = $query;
-        }
-        return $allData;
-    }
-
-    public function getLaporanSummary()
-    {
-        $query = "  SELECT 
-                        a.*, 
-                        k.nama_kegiatan, 
-                        CASE 
-                            WHEN a.type_anggaran = 0 THEN a.nominal 
-                            ELSE '-'
-                        END as kredit, 
-                        CASE 
-                            WHEN a.type_anggaran = 1 THEN a.nominal 
-                            ELSE '-' 
-                        END as debit 
-                    FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id 
-                    WHERE 
-                        a.tanggal BETWEEN CAST(DATE_ADD(NOW(), INTERVAL -3 MONTH) AS DATE) AND CAST(NOW() AS DATE) 
-                        AND type_anggaran in ('1','0')";
-        $this->db->query($query);
-        $allData = $this->db->resultset();
-        for ($i = 0; $i < count($allData); $i++) {
-            $status_loop = $allData[$i]["status"];
-            if ($status_loop == WAITING) {
-                $status_loop = "Proses Pemerikasaan";
-            } else if ($status_loop == PROCESS) {
-                $status_loop = "Telah di Setujui Bendahara";
-            } else if ($status_loop == FINISH) {
-                $status_loop = "Telah di Setuju PPTK";
-            } else {
-                $status_loop = " - ";
-            }
-            $allData[$i]['status'] = $status_loop;
-            $allData[$i]['queryData'] = $query;
-        }
-        return $allData;
     }
 }
 

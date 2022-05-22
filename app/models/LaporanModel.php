@@ -32,8 +32,7 @@ class LaporanModel
                         END as debit 
                     FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id 
                     WHERE 
-                        a.tanggal BETWEEN CAST(DATE_ADD(NOW(), INTERVAL -3 MONTH) AS DATE) AND CAST(NOW() AS DATE) 
-                        AND type_anggaran in (:type_anggaran)";
+                        type_anggaran in (:type_anggaran) ORDER BY tanggal DESC";
         $this->db->query($query);
         $this->db->bind('type_anggaran', $type_anggaran);
         $allData = $this->db->resultset();
@@ -48,7 +47,7 @@ class LaporanModel
             } else {
                 $status_loop = " - ";
             }
-            $allData[$i]['status'] = $status_loop;
+            $allData[$i]['status_desc'] = $status_loop;
             $allData[$i]['queryData'] = $query;
         }
         return $allData;
@@ -77,8 +76,7 @@ class LaporanModel
                         END as debit 
                     FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id 
                     WHERE 
-                        a.tanggal BETWEEN CAST(DATE_ADD(NOW(), INTERVAL -3 MONTH) AS DATE) AND CAST(NOW() AS DATE) 
-                        AND type_anggaran in ('1','0') and a.tanggal Like :month ORDER BY a.tanggal ASC";
+                        type_anggaran in ('1','0') and a.tanggal Like :month ORDER BY tanggal DESC";
         $this->db->query($query);
         $this->db->bind('month', $month . '%');
         $allData = $this->db->resultset();

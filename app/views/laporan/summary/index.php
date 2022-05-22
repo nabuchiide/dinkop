@@ -72,9 +72,10 @@
                             <th>No Rekening</th>
                             <th>Nama Kegiatan</th>
                             <th>Uraian</th>
+                            <th>status</th>
                             <th>Debit</th>
                             <th>Kredit</th>
-                            <th>status</th>
+                            <th>total</th>
                         </tr>
                     </thead>
                     <tbody id="summaryResult">
@@ -82,19 +83,19 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="5">Jumlah Bulan Ini</th>
+                            <th colspan="6">Jumlah Bulan Ini</th>
                             <th><span id="total-pemasukan-bulan-ini"></span></th>
                             <th><span id="total-pengeluaran-bulan-ini"></span></th>
                             <th><span id="total-saldo-bulan-ini"></span></th>
                         </tr>
                         <tr>
-                            <th colspan="5">Jumlah s/d Bulan Lalu</th>
+                            <th colspan="6">Jumlah s/d Bulan Lalu</th>
                             <th><span id="total-pemasukan-sampai-bulan-lalu"></th>
                             <th><span id="total-pengeluaran-sampai-bulan-lalu"></th>
                             <th><span id="total-saldo-bulan-lalu"></th>
                         </tr>
                         <tr>
-                            <th colspan="5">Jumlah s/d Bulan Ini</th>
+                            <th colspan="6">Jumlah s/d Bulan Ini</th>
                             <th><span id="total-pemasukan-keseluruhan"></th>
                             <th><span id="total-pengeluaran-keseluruhan"></th>
                             <th><span id="total-saldo-keseluruhan"></th>
@@ -144,13 +145,19 @@
                                 data_load += '    <td>' + element_data.no_rekening_result + '</td>'
                                 data_load += '    <td>' + element_data.nama_kegiatan_result + '</td>'
                                 data_load += '    <td>' + element_data.keterangan + '</td>'
+                                data_load += '    <td>' + element_data.status + '</td>'
                                 data_load += '    <td>' + numberWithCommas(element_data.debit) + '</td>'
                                 data_load += '    <td>' + numberWithCommas(element_data.kredit) + '</td>'
-                                data_load += '    <td>' + element_data.status + '</td>'
+                                data_load += '    <td>' +
+                                    numberWithCommas(
+                                        (element_data.debit != '-' ? parseInt(element_data.debit) : 0) -
+                                        (element_data.kredit != '-' ? parseInt(element_data.kredit) : 0)
+                                    ) + '</td>'
                                 data_load += '</tr>'
                             }
                         } else {
                             data_load += '<tr>'
+                            data_load += '    <td> - </td>'
                             data_load += '    <td> - </td>'
                             data_load += '    <td> - </td>'
                             data_load += '    <td> - </td>'

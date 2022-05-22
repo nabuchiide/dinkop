@@ -28,6 +28,7 @@
                             <th>Uraian</th>
                             <th>kredit</th>
                             <th>status</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,7 +44,14 @@
                                 <td><?= $pemasukan['no_rekening']; ?></td>
                                 <td><?= $pemasukan['keterangan']; ?></td>
                                 <td><?= $pemasukan['kredit']; ?></td>
-                                <td><?= $pemasukan['status']; ?></td>
+                                <td><?= $pemasukan['status_desc']; ?></td>
+                                <td>
+                                    <button class="ubahStatus btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id']; ?>" data-status="<?= $pemasukan['status'] ?>">
+                                        <span>
+                                            Ubah Status
+                                        </span>
+                                    </button>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -56,5 +64,46 @@
 <script>
     $(document).ready(function() {
         $('.data-table-format').DataTable();
+
+        $('.ubahStatus').on('click', function() {
+            var id = $(this).data('id')
+            var status = modifyStatus($(this).data('status'));
+            console.log(id);
+            console.log(status);
+            $.ajax({
+                url: '<?= BASEURL; ?>/laporan/ubahstatusbyid',
+                data: {
+                    id: id,
+                    status: status
+                },
+                method: 'post',
+                dataType: 'json',
+                beforeSend: function() {
+                    $.blockUI({
+                        message: null
+                    });
+                },
+                complete: function() {
+                    $.unblockUI();
+                },
+                success: function(data) {
+                    console.log(data);
+                    location.reload();
+                },
+                error: function(data) {
+                    console.log("ERROR");
+                }
+            })
+
+        });
     });
+
+    function modifyStatus(status) {
+        if (parseInt(status) == 0) {
+            status = 1
+        } else if (parseInt(status) == 1) {
+            status = 2
+        }
+        return status
+    }
 </script>

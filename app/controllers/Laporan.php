@@ -46,10 +46,26 @@ class Laporan extends Controller
     {
         $month = $_POST['month'];
         $allData['anggaran'] = $this->model("LaporanModel")->getLaporanSummary($month);
-        $allData['totalPemasukanSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month,UANG_MASUK);
-        $allData['totalPengeluaranSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month,UANG_KELUAR);
-        $allData['totalPemasukanBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month,UANG_MASUK);
-        $allData['totalPengeluaranBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month,UANG_KELUAR);
+        $allData['totalPemasukanSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_MASUK);
+        $allData['totalPengeluaranSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_KELUAR);
+        $allData['totalPemasukanBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month, UANG_MASUK);
+        $allData['totalPengeluaranBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month, UANG_KELUAR);
         echo json_encode($allData);
+    }
+
+    public function ubahStatusById()
+    {
+        $id = $_POST['id'];
+        $status = $_POST['status'];
+        $result = $this->model("AnggaranModel")->ubahStatusById($id, $status);
+        echo json_encode($result);
+    }
+
+    public function ubahStatusByIdKegiatan()
+    {
+        $id = $_POST['id'];
+        $status = $_POST['status'];
+        $result = $this->model("AnggaranModel")->ubahStatusByIdKegiatan($id, $status);
+        echo json_encode($result);
     }
 }
