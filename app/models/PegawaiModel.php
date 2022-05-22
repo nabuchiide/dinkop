@@ -84,7 +84,7 @@ class PegawaiModel
 
     public function getDataByJabatan($jabatan)
     {
-        $this->db->query("  SELECT nama_pegawai FROM pegawai WHERE jabatan =:jabatan ORDER BY id DESC limit 1 ");
+        $this->db->query("  SELECT nama_pegawai, no_pegawai FROM pegawai WHERE jabatan =:jabatan ORDER BY id DESC limit 1 ");
         $this->db->bind('jabatan', $jabatan);
         return $this->db->single();
     }

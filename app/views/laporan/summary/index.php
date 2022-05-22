@@ -104,6 +104,14 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <a href="#" class="print_data col-sm-1 col-form-label btn btn-primary" id="" onclick="func_print_excel();" style="display: none;"> Print Excel</a>
+                <a href="#" class="print_data col-sm-1 col-form-label btn btn-success" id="" onclick="func_print_pdf();" style="display: none;"> Print PDF</a>
+            </div>
+        </div>
+        <br>
+        
     </div>
     <br>
 
@@ -192,6 +200,7 @@
                         $('#summaryResult').html(data_load)
                         $('#bulan_search').html(convertMonth($('#month_data').val()))
                         $('#card-tabel-summary').show()
+                        $('.print_data').show()
                     }
                 },
                 error: function(data) {

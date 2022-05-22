@@ -49,7 +49,7 @@ $dataKegiatan       = $data['kegiatan'];
             <div class="card">
                 <div class="card-body">
                     <div class="col-sm-2">
-                        <button class="btn btn-secondary waves-effect waves-light" id="button_tambah" onclick="tambahDataElement('0')" type="button"> Tambah Data </button>
+                        <button class="btn btn-success waves-effect waves-light" id="button_tambah" onclick="tambahDataElement('0')" type="button"> Tambah Data </button>
                     </div>
                     <br>
                     <table class="table table-bordered data-table-format" width="100%">

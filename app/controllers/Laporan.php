@@ -68,4 +68,17 @@ class Laporan extends Controller
         $result = $this->model("AnggaranModel")->ubahStatusByIdKegiatan($id, $status);
         echo json_encode($result);
     }
+
+    public function printLaporanPajak($month){
+        $data['judul'] = 'Laporan Summary';
+        $data['nama_KPA'] = $this->model('PegawaiModel')->getDataByJabatan(KEPALA);
+        $data['nama_Bendahara'] = $this->model('PegawaiModel')->getDataByJabatan(BENDAHARA);
+        // $month = $_POST['month'];
+        $allData['anggaran'] = $this->model("LaporanModel")->getLaporanSummary($month);
+        $allData['totalPemasukanSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_MASUK);
+        $allData['totalPengeluaranSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_KELUAR);
+        $allData['totalPemasukanBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month, UANG_MASUK);
+        $allData['totalPengeluaranBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month, UANG_KELUAR);
+    }
+
 }
