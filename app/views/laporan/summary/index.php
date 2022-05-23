@@ -106,12 +106,11 @@
         </div>
         <div class="row">
             <div class="col">
-                <a href="#" class="print_data col-sm-1 col-form-label btn btn-primary" id="" onclick="func_print_excel();" style="display: none;"> Print Excel</a>
-                <a href="#" class="print_data col-sm-1 col-form-label btn btn-success" id="" onclick="func_print_pdf();" style="display: none;"> Print PDF</a>
+                <a href="#" class="print_data col-sm-1 col-form-label btn btn-success" id="" onclick="func_print_pdf();" style="display: none;"> Print</a>
             </div>
         </div>
         <br>
-        
+
     </div>
     <br>
 
@@ -213,6 +212,17 @@
 
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function func_print_pdf() {
+        const month = $('#month_data').val();
+        if (month == "") {
+            alert("data Kosong ");
+        } else {
+            var loaction_url = "<?= BASEURL; ?>/laporan/printLaporanpdf/" + month
+            window.open(loaction_url)
+        }
+
     }
 
     function convertMonth(month) {

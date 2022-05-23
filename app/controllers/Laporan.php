@@ -69,16 +69,39 @@ class Laporan extends Controller
         echo json_encode($result);
     }
 
-    public function printLaporanPajak($month){
+    public function printLaporanpdf($month)
+    {
         $data['judul'] = 'Laporan Summary';
+        $data['bulan'] = $this->convertMonth($month);
         $data['nama_KPA'] = $this->model('PegawaiModel')->getDataByJabatan(KEPALA);
         $data['nama_Bendahara'] = $this->model('PegawaiModel')->getDataByJabatan(BENDAHARA);
-        // $month = $_POST['month'];
-        $allData['anggaran'] = $this->model("LaporanModel")->getLaporanSummary($month);
-        $allData['totalPemasukanSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_MASUK);
-        $allData['totalPengeluaranSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_KELUAR);
-        $allData['totalPemasukanBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month, UANG_MASUK);
-        $allData['totalPengeluaranBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month, UANG_KELUAR);
+        $data['anggaran'] = $this->model("LaporanModel")->getLaporanSummary($month);
+        $data['totalPemasukanSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_MASUK);
+        $data['totalPengeluaranSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_KELUAR);
+        $data['totalPemasukanBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month, UANG_MASUK);
+        $data['totalPengeluaranBulanIni'] = $this->model("LaporanModel")->getTotalSaldoBulanIni($month, UANG_KELUAR);
+        $this->view('templates/header', $data);
+        $this->view('download/downloadFilePDF', $data);
     }
 
+    public function convertMonth($month) {
+        $monthArr = explode("-",$month);
+        $months = array(
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Augustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember"
+        );
+// $cars[0] . ", " . $cars[1] . " and " . $cars[2]
+        // return months[parseInt(monthArr[1] - 1)] + " " + monthArr[0]
+        return $months[intval($monthArr)-intval(-1)]." ".$monthArr[0];
+    }
 }

@@ -61,14 +61,14 @@
                             </ul>
                         </li>
 
-                        <li class="menu-title">Laporan</li>
+                        <li class="menu-title">Laporan Kas</li>
 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-file-document"></i> <span> Laporan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="<?= BASEURL ?>/laporan/pemasukan">Pemasukan</a></li>
                                 <li><a href="<?= BASEURL ?>/laporan/pengeluaran">Pengeluaran</a></li>
-                                <li><a href="<?= BASEURL ?>/laporan/summary">Summary</a></li>
+                                <li><a href="<?= BASEURL ?>/laporan/summary">Laporan</a></li>
                             </ul>
                             <!-- <a href="<?= BASEURL ?>/laporan/pajak" class="waves-effect">
                                 <i class="mdi mdi-file-document"></i>

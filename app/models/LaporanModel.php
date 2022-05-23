@@ -48,7 +48,6 @@ class LaporanModel
                 $status_loop = " - ";
             }
             $allData[$i]['status_desc'] = $status_loop;
-            $allData[$i]['queryData'] = $query;
         }
         return $allData;
     }
@@ -91,7 +90,7 @@ class LaporanModel
             } else {
                 $status_loop = " - ";
             }
-            $allData[$i]['status'] = $status_loop;
+            $allData[$i]['status_desc'] = $status_loop;
         }
         return $allData;
     }
