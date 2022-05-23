@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Bulan Mei 2022 pada 10.11
+-- Waktu pembuatan: 23 Bulan Mei 2022 pada 05.13
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.4.23
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `anggaran` (
   `id` int(10) NOT NULL,
-  `tanggal` varchar(45) NOT NULL,
+  `tanggal` date NOT NULL,
   `nominal` int(20) NOT NULL,
   `no_rekening` varchar(25) NOT NULL,
   `keterangan` text NOT NULL,
@@ -43,16 +43,9 @@ CREATE TABLE `anggaran` (
 --
 
 INSERT INTO `anggaran` (`id`, `tanggal`, `nominal`, `no_rekening`, `keterangan`, `type_anggaran`, `id_kegiatan`, `status`) VALUES
-(1, '2022-05-19', 10000, '14578', 'test Edit Pengeluaran', 0, 2, 0),
-(2, '2022-05-19', 10, '10', 'tes3', 1, 0, 0),
-(3, '2022-05-19', 20, '20', 'test3', 1, 0, 0),
-(4, '2022-05-17', 78000, '', 'test Edit Pengeluaran beli makanan', 0, 2, 0),
-(5, '2022-05-17', 700000, '', 'Konsumsi', 0, 2, 0),
-(6, '2022-05-17', 1000, '', 'test Edit Pengeluaran2', 0, 2, 0),
-(7, '2022-04-06', 1000000, '112233', 'tunjangan hari raya', 0, 1, 0),
-(8, '2022-04-06', 3000, '', 'Konsumsi', 0, 1, 0),
-(9, '2022-04-06', 51110, '', 'Test Keterangan', 0, 1, 0),
-(10, '2022-04-06', 25000, '145782', 'makna pak ujang', 0, 1, 0);
+(3, '2022-05-19', 20, '20', 'test3', 1, 0, 2),
+(5, '2022-05-17', 700000, '', 'Konsumsi', 0, 2, 2),
+(6, '2022-05-17', 1000, '', 'test Edit Pengeluaran2', 0, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -66,7 +59,7 @@ CREATE TABLE `kegiatan` (
   `organisasi` varchar(45) NOT NULL,
   `tanggal` date NOT NULL,
   `keterangan` text NOT NULL,
-  `status` varchar(2) NOT NULL
+  `status` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -74,8 +67,7 @@ CREATE TABLE `kegiatan` (
 --
 
 INSERT INTO `kegiatan` (`id`, `nama_kegiatan`, `organisasi`, `tanggal`, `keterangan`, `status`) VALUES
-(1, 'perjalanan dinas', 'mapala', '2022-04-06', '1.234.567', '0'),
-(2, 'Training PNS', 'dinkop', '2022-05-17', 'TESTING', '0');
+(2, 'Training PNS', 'dinkop', '2022-05-17', 'TESTING', 0);
 
 -- --------------------------------------------------------
 
@@ -118,7 +110,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_name`, `password`, `user_type`, `id`, `no_pegawai`) VALUES
-('winda', '2', '1', 2, '1510631170065');
+('winda', 'winda', '1', 3, '1510631170065');
 
 --
 -- Indexes for dumped tables
@@ -174,7 +166,7 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
