@@ -28,3 +28,4 @@ define('FINISH','2');
 //tipe Anggaran
 define('UANG_MASUK','1');
 define('UANG_KELUAR','0');
+
