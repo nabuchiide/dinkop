@@ -28,11 +28,9 @@
                             </div>
                             <div class="col-9 align-self-center text-right">
                                 <div class="m-l-10">
-                                    <?php
-                                    $dataLunas = $data['lunas']['total_sum'];
-                                    ?>
-                                    <h5 class="mt-0">Rp <?= number_format($data['lunas']['total_sum']) ?></h5>
-                                    <p class="mb-0 text-muted">Pajak yang Telah dibayarkan <span class="badge bg-soft-success"></p>
+                                    
+                                    <h5 class="mt-0">Rp </h5>
+                                    <p class="mb-0 text-muted">Total Pemasukan bulan Ini <span class="badge bg-soft-success"></p>
                                 </div>
                             </div>
                         </div>
@@ -53,9 +51,9 @@
                             </div>
                             <div class="col-9 align-self-center text-right">
                                 <div class="m-l-10">
-                                    <?php $dataTunggakan = $data['tunggakan']['total_sum']; ?>
-                                    <h5 class="mt-0">Rp <?= number_format($data['tunggakan']['total_sum']) ?></h5>
-                                    <p class="mb-0 text-muted">Tunggakan <span class="badge bg-soft-success"></p>
+                                   
+                                    <h5 class="mt-0">Rp </h5>
+                                    <p class="mb-0 text-muted">Pengeluara bulan ini <span class="badge bg-soft-success"></p>
                                 </div>
                             </div>
                         </div>
@@ -77,8 +75,8 @@
                             </div>
                             <div class="col-9 align-self-center text-right">
                                 <div class="m-l-10">
-                                    <h5 class="mt-0">Rp <?= number_format(intval($data['totalAnggran']['total_sum']) - ($data['lunas']['total_sum'])); ?></h5>
-                                    <p class="mb-0 text-muted">Anggran setelah dikenai pajak <span class="badge bg-soft-success"></p>
+                                    <h5 class="mt-0">Rp </h5>
+                                    <p class="mb-0 text-muted">Total Anggaran <span class="badge bg-soft-success"></p>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +98,7 @@
                             </div>
                             <div class="col-9 align-self-center text-right">
                                 <div class="m-l-10">
-                                    <h5 class="mt-0"><?= number_format(intval($data['totalKegitan']['total_count'])); ?></h5>
+                                    <h5 class="mt-0"></h5>
                                     <p class="mb-0 text-muted">Kegiatan<span class="badge bg-soft-success"></p>
                                 </div>
                             </div>
@@ -118,25 +116,18 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="mt-0 header-title">Tunggakan</h4>
+                        <h4 class="mt-0 header-title">Data Pemasukan bulan ini</h4>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
                                     <th>Nama Kegiatan</th>
-                                    <th>Pajak</th>
-                                    <th>Rincian</th>
+                                    <th>Kredit</th>
+                                    <th>Debit</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($data['tunggakanPajakData'] as $data_loop_result) : ?>
-                                    <tr>
-                                        <td><?= $data_loop_result['tanggal']; ?></td>
-                                        <td><?= $data_loop_result['nama_kegiatan']; ?></td>
-                                        <td><?= $data_loop_result['pajak']; ?></td>
-                                        <td><?= $data_loop_result['keterangan']; ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -147,7 +138,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="mt-0 header-title">Pajak</h4>
+                        <h4 class="mt-0 header-title">Anggaran</h4>
 
                         <div id="chartData" class="h-300"></div>
 
@@ -157,7 +148,7 @@
         </div>
 
     </div>
-
+<br>
     <!--Morris Chart-->
     <script src="<?= BASEURL ?>/assets/plugins/morris/morris.min.js"></script>
     <script src="<?= BASEURL ?>/assets/plugins/raphael/raphael-min.js"></script>
@@ -173,12 +164,12 @@
         new Morris.Donut({
             element: 'chartData',
             data: [{
-                    label: 'Lunas',
+                    label: 'Pemasukan',
                     value: <?= $dataLunas; ?>,
                     color: '#00b359'
                 },
                 {
-                    label: 'Tunggakan',
+                    label: 'Pengeluaran',
                     value: <?= $dataTunggakan ?>,
                     color : '#ff0303'
                 }
