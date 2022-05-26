@@ -14,7 +14,20 @@
             </div>
             <div class="clearfix"></div>
         </div>
+        <?php
+        $pemasukanBulanIni = $data['totalPemasukanBulanIni']['totalAnggaran'];
+        $pengeluaranBulanIni = $data['totalPengeluaranBulanIni']['totalAnggaran'];
+        $totalSaldobulanIni = intval($pemasukanBulanIni) - intval($pengeluaranBulanIni);
 
+        $totalPemasukanSampaiBulanLalu = $data['totalPemasukanSampaiBulanLalu']['totalAnggaran'];
+        $totalPengeluaranSampaiBulanLalu = $data['totalPengeluaranSampaiBulanLalu']['totalAnggaran'];
+        $totalSaldoBulanLaulu = intval($totalPemasukanSampaiBulanLalu) - intval($totalPengeluaranSampaiBulanLalu);
+
+        $totalPemasukanKeseluruhan = intval($pemasukanBulanIni) + intval($totalPemasukanSampaiBulanLalu);
+        $totalPengeluranKeseluruhan = intval($pengeluaranBulanIni) + intval($totalPengeluaranSampaiBulanLalu);
+        $totalSaldoKeseluruhan = intval($totalPemasukanKeseluruhan) - intval($totalPengeluranKeseluruhan);
+
+        ?>
         <div class="row container-fluid">
             <div class="col-lg-3">
                 <div class="card">
@@ -28,8 +41,8 @@
                             </div>
                             <div class="col-9 align-self-center text-right">
                                 <div class="m-l-10">
-                                    
-                                    <h5 class="mt-0">Rp </h5>
+
+                                    <h5 class="mt-0">Rp <?= number_format($pemasukanBulanIni); ?></h5>
                                     <p class="mb-0 text-muted">Total Pemasukan bulan Ini <span class="badge bg-soft-success"></p>
                                 </div>
                             </div>
@@ -51,8 +64,8 @@
                             </div>
                             <div class="col-9 align-self-center text-right">
                                 <div class="m-l-10">
-                                   
-                                    <h5 class="mt-0">Rp </h5>
+
+                                    <h5 class="mt-0">Rp <?= number_format($pengeluaranBulanIni); ?></h5>
                                     <p class="mb-0 text-muted">Pengeluara bulan ini <span class="badge bg-soft-success"></p>
                                 </div>
                             </div>
@@ -75,7 +88,7 @@
                             </div>
                             <div class="col-9 align-self-center text-right">
                                 <div class="m-l-10">
-                                    <h5 class="mt-0">Rp </h5>
+                                    <h5 class="mt-0">Rp <?= number_format($totalSaldoKeseluruhan) ?></h5>
                                     <p class="mb-0 text-muted">Total Anggaran <span class="badge bg-soft-success"></p>
                                 </div>
                             </div>
@@ -98,7 +111,7 @@
                             </div>
                             <div class="col-9 align-self-center text-right">
                                 <div class="m-l-10">
-                                    <h5 class="mt-0"></h5>
+                                    <h5 class="mt-0"><?= $data['totalKegiatan']['total_count'] ?></h5>
                                     <p class="mb-0 text-muted">Kegiatan<span class="badge bg-soft-success"></p>
                                 </div>
                             </div>
@@ -127,7 +140,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                <?php
+                                $anggaranArr = $data['anggaran'];
+                                $no = 0;
+                                foreach ($anggaranArr as $anggaran) :
+                                    $no++;
+                                    if($no > 6) break;
+                                    $debit = ($anggaran['debit'] != '-') ? $anggaran['debit'] : 0;
+                                    $kredit = ($anggaran['kredit'] != '-') ? $anggaran['kredit'] : 0;
+                                    $totalSaldo = $debit - $kredit;
+                                ?>
+
+                                    <tr>
+                                        <td><?= $anggaran['tanggal']; ?></td>
+                                        <td><?= $anggaran['nama_kegiatan_result']; ?></td>
+                                        <td><?= number_format($debit); ?></td>
+                                        <td><?= number_format($kredit); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -148,7 +178,7 @@
         </div>
 
     </div>
-<br>
+    <br>
     <!--Morris Chart-->
     <script src="<?= BASEURL ?>/assets/plugins/morris/morris.min.js"></script>
     <script src="<?= BASEURL ?>/assets/plugins/raphael/raphael-min.js"></script>
@@ -165,13 +195,13 @@
             element: 'chartData',
             data: [{
                     label: 'Pemasukan',
-                    value: <?= $dataLunas; ?>,
+                    value: <?= $totalPemasukanKeseluruhan; ?>,
                     color: '#00b359'
                 },
                 {
                     label: 'Pengeluaran',
-                    value: <?= $dataTunggakan ?>,
-                    color : '#ff0303'
+                    value: <?= $totalPengeluranKeseluruhan ?>,
+                    color: '#ff0303'
                 }
             ]
         });
