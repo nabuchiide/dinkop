@@ -41,10 +41,10 @@
                 <hr>
                 <div class="row">
                     <label for="example-text-input" class="col-sm-3 col-form-label">SKPD</label>
-                    <label for="example-text-input" class="col-sm-7 col-form-label">: DINAS KOPERASI DAN UMKM KABUTAPATEN KARAWANG</label>
+                    <label for="example-text-input" class="col-sm-7 col-form-label">: DINAS KOPERASI DAN UMKM KABUPATEN KARAWANG</label>
                 </div>
                 <div class="row">
-                    <label for="example-text-input" class="col-sm-3 col-form-label">Pengguna Anggaran (PA)/Kuasa PA/PPTK</label>
+                    <label for="example-text-input" class="col-sm-3 col-form-label">Pengguna Anggaran (PA)</label>
                     <label for="example-text-input" class="col-sm-2 col-form-label">: <?= $data['nama_KPA']['nama_pegawai'] ?></label>
                 </div>
                 <div class="row">
@@ -72,7 +72,6 @@
                             <th>No Rekening</th>
                             <th>Nama Kegiatan</th>
                             <th>Uraian</th>
-                            <th>status</th>
                             <th>Debit</th>
                             <th>Kredit</th>
                             <th>total</th>
@@ -86,19 +85,16 @@
                             <th colspan="6">Jumlah Bulan Ini</th>
                             <th><span id="total-pemasukan-bulan-ini"></span></th>
                             <th><span id="total-pengeluaran-bulan-ini"></span></th>
-                            <th><span id="total-saldo-bulan-ini"></span></th>
                         </tr>
                         <tr>
                             <th colspan="6">Jumlah s/d Bulan Lalu</th>
                             <th><span id="total-pemasukan-sampai-bulan-lalu"></th>
                             <th><span id="total-pengeluaran-sampai-bulan-lalu"></th>
-                            <th><span id="total-saldo-bulan-lalu"></th>
                         </tr>
                         <tr>
                             <th colspan="6">Jumlah s/d Bulan Ini</th>
                             <th><span id="total-pemasukan-keseluruhan"></th>
                             <th><span id="total-pengeluaran-keseluruhan"></th>
-                            <th><span id="total-saldo-keseluruhan"></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -152,7 +148,6 @@
                                 data_load += '    <td>' + element_data.no_rekening_result + '</td>'
                                 data_load += '    <td>' + element_data.nama_kegiatan_result + '</td>'
                                 data_load += '    <td>' + element_data.keterangan + '</td>'
-                                data_load += '    <td>' + element_data.status + '</td>'
                                 data_load += '    <td>' + numberWithCommas(element_data.debit) + '</td>'
                                 data_load += '    <td>' + numberWithCommas(element_data.kredit) + '</td>'
                                 data_load += '    <td>' +
@@ -180,21 +175,18 @@
                         totalSaldobulanIni = parseInt(pemasukanBulanIni) - parseInt(pengeluaranBulanIni)
                         $('#total-pemasukan-bulan-ini').html(numberWithCommas(pemasukanBulanIni))
                         $('#total-pengeluaran-bulan-ini').html(numberWithCommas(pengeluaranBulanIni))
-                        $('#total-saldo-bulan-ini').html(numberWithCommas(totalSaldobulanIni))
 
                         pemasukanSampaiBulanLalu = result.totalPemasukanSampaiBulanLalu.totalAnggaran
                         pengeluaranSampaiBulanLalu = result.totalPengeluaranSampaiBulanLalu.totalAnggaran
                         totalSaldoBulanLau = parseInt(pemasukanSampaiBulanLalu) - parseInt(pengeluaranSampaiBulanLalu)
                         $('#total-pemasukan-sampai-bulan-lalu').html(numberWithCommas(pemasukanSampaiBulanLalu))
                         $('#total-pengeluaran-sampai-bulan-lalu').html(numberWithCommas(pemasukanSampaiBulanLalu))
-                        $('#total-saldo-bulan-lalu').html(numberWithCommas(totalSaldoBulanLau))
 
                         totalPemasukanKeseluruhan = parseInt(pemasukanBulanIni) + parseInt(pemasukanSampaiBulanLalu)
                         totalPengeluranKeseluruhan = parseInt(pengeluaranBulanIni) + parseInt(pengeluaranSampaiBulanLalu)
                         totalSaldoKeseluruhan = parseInt(totalPemasukanKeseluruhan) - parseInt(totalPengeluranKeseluruhan)
                         $('#total-pemasukan-keseluruhan').html(numberWithCommas(totalPemasukanKeseluruhan))
                         $('#total-pengeluaran-keseluruhan').html(numberWithCommas(totalPengeluranKeseluruhan))
-                        $('#total-saldo-keseluruhan').html(numberWithCommas(totalSaldoKeseluruhan))
 
                         $('#summaryResult').html(data_load)
                         $('#bulan_search').html(convertMonth($('#month_data').val()))

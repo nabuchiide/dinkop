@@ -34,7 +34,7 @@
             <div class="sidebar-inner niceScrollleft">
                 <?php
                 $sessionUserType = $_SESSION['login']['type'];
-                if ($sessionUserType = MASTER_USR) { ?>
+                if ($sessionUserType == MASTER_USR) { ?>
                     <div id="sidebar-menu">
                         <ul>
                             <li>
@@ -57,7 +57,7 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-bullseye"></i> <span> Kegiatan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="<?= BASEURL ?>/kegiatan">Kegitan</a></li>
+                                    <li><a href="<?= BASEURL ?>/kegiatan">kegiatan</a></li>
                                     <li><a href="<?= BASEURL ?>/pemasukan">Pemasukan</a></li>
                                     <li><a href="<?= BASEURL ?>/pengeluaran">Pengeluaran</a></li>
                                 </ul>
@@ -80,33 +80,14 @@
 
                         </ul>
                     </div>
-                <?php } else if ($sessionUserType = KEPALA_USR) { ?>
+                <?php } else if ($sessionUserType == KEPALA_USR) { ?>
                     <div id="sidebar-menu">
                         <ul>
                             <li>
                                 <a href="<?= BASEURL ?>/home" class="waves-effect">
                                     <i class="mdi mdi-airplay"></i>
-                                    <span> Dashboard </span>
+                                    <span> Dashboard</span>
                                 </a>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-layers"></i> <span> Personalia </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="<?= BASEURL ?>/user">User</a></li>
-                                    <li><a href="<?= BASEURL ?>/pegawai">Pegawai</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="menu-title">Main</li>
-
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-bullseye"></i> <span> Kegiatan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="<?= BASEURL ?>/kegiatan">Kegitan</a></li>
-                                    <li><a href="<?= BASEURL ?>/pemasukan">Pemasukan</a></li>
-                                    <li><a href="<?= BASEURL ?>/pengeluaran">Pengeluaran</a></li>
-                                </ul>
                             </li>
 
                             <li class="menu-title">Laporan Kas</li>
@@ -118,15 +99,11 @@
                                     <li><a href="<?= BASEURL ?>/laporan/pengeluaran">Pengeluaran</a></li>
                                     <li><a href="<?= BASEURL ?>/laporan/summary">Laporan</a></li>
                                 </ul>
-                                <!-- <a href="<?= BASEURL ?>/laporan/pajak" class="waves-effect">
-                                <i class="mdi mdi-file-document"></i>
-                                <span> Laporan Keuangan </span>
-                            </a> -->
                             </li>
 
                         </ul>
                     </div>
-                <?php } else if ($sessionUserType = BENDAHARA_USR) { ?>
+                <?php } else if ($sessionUserType == BENDAHARA_USR) { ?>
                     <div id="sidebar-menu">
                         <ul>
                             <li>
@@ -136,20 +113,12 @@
                                 </a>
                             </li>
 
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-layers"></i> <span> Personalia </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
-                                <ul class="list-unstyled">
-                                    <li><a href="<?= BASEURL ?>/user">User</a></li>
-                                    <li><a href="<?= BASEURL ?>/pegawai">Pegawai</a></li>
-                                </ul>
-                            </li>
-
                             <li class="menu-title">Main</li>
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-bullseye"></i> <span> Kegiatan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="<?= BASEURL ?>/kegiatan">Kegitan</a></li>
+                                    <li><a href="<?= BASEURL ?>/kegiatan">kegiatan</a></li>
                                     <li><a href="<?= BASEURL ?>/pemasukan">Pemasukan</a></li>
                                     <li><a href="<?= BASEURL ?>/pengeluaran">Pengeluaran</a></li>
                                 </ul>
@@ -164,15 +133,11 @@
                                     <li><a href="<?= BASEURL ?>/laporan/pengeluaran">Pengeluaran</a></li>
                                     <li><a href="<?= BASEURL ?>/laporan/summary">Laporan</a></li>
                                 </ul>
-                                <!-- <a href="<?= BASEURL ?>/laporan/pajak" class="waves-effect">
-                                <i class="mdi mdi-file-document"></i>
-                                <span> Laporan Keuangan </span>
-                            </a> -->
                             </li>
 
                         </ul>
                     </div>
-                <?php } else if ($sessionUserType = ADMIN_USR) { ?>
+                <?php } else if ($sessionUserType == ADMIN_USR) { ?>
                     <div id="sidebar-menu">
                         <ul>
                             <li>
@@ -195,7 +160,7 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-bullseye"></i> <span> Kegiatan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="<?= BASEURL ?>/kegiatan">Kegitan</a></li>
+                                    <li><a href="<?= BASEURL ?>/kegiatan">kegiatan</a></li>
                                     <li><a href="<?= BASEURL ?>/pemasukan">Pemasukan</a></li>
                                     <li><a href="<?= BASEURL ?>/pengeluaran">Pengeluaran</a></li>
                                 </ul>
@@ -206,14 +171,8 @@
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-file-document"></i> <span> Laporan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="<?= BASEURL ?>/laporan/pemasukan">Pemasukan</a></li>
-                                    <li><a href="<?= BASEURL ?>/laporan/pengeluaran">Pengeluaran</a></li>
                                     <li><a href="<?= BASEURL ?>/laporan/summary">Laporan</a></li>
                                 </ul>
-                                <!-- <a href="<?= BASEURL ?>/laporan/pajak" class="waves-effect">
-                                <i class="mdi mdi-file-document"></i>
-                                <span> Laporan Keuangan </span>
-                            </a> -->
                             </li>
 
                         </ul>
@@ -261,9 +220,3 @@
                     </nav>
                 </div>
                 <!-- Top Bar End -->
-
-                <pre>
-        <?php
-        print_r($_SESSION)
-        ?>
-    </pre>

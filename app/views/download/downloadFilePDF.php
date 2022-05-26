@@ -18,7 +18,7 @@
                 <hr>
                 <div class="row">
                     <label for="example-text-input" class="col-sm-3 col-form-label">SKPD</label>
-                    <label for="example-text-input" class="col-sm-7 col-form-label">: DINAS KOPERASI DAN UMKM KABUTAPATEN KARAWANG</label>
+                    <label for="example-text-input" class="col-sm-7 col-form-label">: DINAS KOPERASI DAN UMKM KABUPATEN KARAWANG</label>
                 </div>
                 <div class="row">
                     <label for="example-text-input" class="col-sm-3 col-form-label">Pengguna Anggaran (PA)/Kuasa PA/PPTK</label>
@@ -32,10 +32,6 @@
                     <label for="example-text-input" class="col-sm-3 col-form-label">Bendahara Pembantu</label>
                     <label for="example-text-input" class="col-sm-2 col-form-label">: - </label>
                 </div>
-                <!--  <div class="row">
-                    <label for="example-text-input" class="col-sm-3 col-form-label">Kegiatan</label>
-                    <label for="example-text-input" class="col-sm-3 col-form-label">: </label>
-                </div> -->
                 <div class="row">
                     <label for="example-text-input" class="col-sm-3 col-form-label">Bulan</label>
                     <label for="example-text-input" class="col-sm-2 col-form-label">: <span id="bulan_search"><?= $data['bulan'] ?></span></label>
@@ -51,7 +47,6 @@
                             <th>Uraian</th>
                             <th>Debit</th>
                             <th>Kredit</th>
-                            <th>total</th>
                         </tr>
                     </thead>
                     <tbody id="summaryResult">
@@ -72,7 +67,6 @@
                                 <td><?= $anggaran['keterangan']; ?></td>
                                 <td><?= number_format($debit); ?></td>
                                 <td><?= number_format($kredit); ?></td>
-                                <td><?= number_format($totalSaldo); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -86,7 +80,6 @@
                             <th colspan="5">Jumlah Bulan Ini</th>
                             <th><span id="total-pemasukan-bulan-ini"><?= number_format($pemasukanBulanIni); ?></span></th>
                             <th><span id="total-pengeluaran-bulan-ini"><?= number_format($pengeluaranBulanIni); ?></span></th>
-                            <th><span id="total-saldo-bulan-ini"><?= number_format($totalSaldobulanIni); ?></span></th>
                         </tr>
                         <?php
                         $totalPemasukanSampaiBulanLalu = $data['totalPemasukanSampaiBulanLalu']['totalAnggaran'];
@@ -97,7 +90,6 @@
                             <th colspan="5">Jumlah s/d Bulan Lalu</th>
                             <th><span id="total-pemasukan-sampai-bulan-lalu"><?= number_format($totalPemasukanSampaiBulanLalu); ?></th>
                             <th><span id="total-pengeluaran-sampai-bulan-lalu"><?= number_format($totalPengeluaranSampaiBulanLalu); ?></th>
-                            <th><span id="total-saldo-bulan-lalu"><?= number_format($totalSaldoBulanLau); ?></th>
                         </tr>
                         <?php
                         $totalPemasukanKeseluruhan = intval($pemasukanBulanIni) + intval($totalPemasukanSampaiBulanLalu);
@@ -108,7 +100,6 @@
                             <th colspan="5">Jumlah s/d Bulan Ini</th>
                             <th><span id="total-pemasukan-keseluruhan"><?= number_format($totalPemasukanKeseluruhan); ?></th>
                             <th><span id="total-pengeluaran-keseluruhan"><?= number_format($totalPengeluranKeseluruhan); ?></th>
-                            <th><span id="total-saldo-keseluruhan"><?= number_format($totalSaldoKeseluruhan) ?></th>
                         </tr>
                     </tfoot>
                 </table>

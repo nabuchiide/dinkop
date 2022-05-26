@@ -61,7 +61,7 @@
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="user_name" class="form-control form-control-lg" placeholder="Masukan User Name" name="user_name" />
+                                        <input type="text" id="user_name" class="form-control form-control-lg" placeholder="Masukan User Name" name="user_name" />
                                     </div>
 
                                     <!-- Password input -->

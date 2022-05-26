@@ -63,6 +63,8 @@
 
 <script>
     $(document).ready(function() {
+        disableButton();
+
         $('.data-table-format').DataTable();
 
         $('.ubahStatus').on('click', function() {
@@ -105,5 +107,23 @@
             status = 2
         }
         return status
+    }
+
+    function disableButton() {
+        <?php $sessionUserType = $_SESSION['login']['type'];
+        if ($sessionUserType == KEPALA_USR) {
+            if (!intval($pemasukan['status'] == intval(PROCESS))) { ?>
+                $('.ubahStatus').prop('disabled', true)
+            <?php }
+        } else if ($sessionUserType == BENDAHARA_USR) {
+            if (!intval($pemasukan['status'] == intval(WAITING))) { ?>
+                $('.ubahStatus').prop('disabled', true)
+            <?php }
+        } else {
+            if (!intval($pemasukan['status'] == intval(PROCESS))) { ?>
+                $('.ubahStatus').prop('disabled', true)
+        <?php }
+        } ?>
+
     }
 </script>

@@ -46,7 +46,7 @@
                                 <td><?= $pemasukan['debit']; ?></td>
                                 <td><?= $pemasukan['status_desc']; ?></td>
                                 <td>
-                                    <button class="ubahStatus btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id']; ?>" data-status="<?= $pemasukan['status'] ?>">
+                                    <button id="buttonStatus" class="ubahStatus btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id']; ?>" data-status="<?= $pemasukan['status'] ?>">
                                         <span>
                                             Ubah Status
                                         </span>
@@ -64,6 +64,8 @@
 
 <script>
     $(document).ready(function() {
+        disableButton();
+
         $('.data-table-format').DataTable();
 
         $('.ubahStatus').on('click', function() {
@@ -106,5 +108,23 @@
             status = 2
         }
         return status
+    }
+
+    function disableButton() {
+        <?php $sessionUserType = $_SESSION['login']['type'];
+        if ($sessionUserType == KEPALA_USR) {
+            if (!intval($pemasukan['status'] == intval(PROCESS))) { ?>
+                $('.ubahStatus').prop('disabled', true)
+            <?php }
+        } else if ($sessionUserType == BENDAHARA_USR) {
+            if (!intval($pemasukan['status'] == intval(WAITING))) { ?>
+                $('.ubahStatus').prop('disabled', true)
+            <?php }
+        } else {
+            if (!intval($pemasukan['status'] == intval(PROCESS))) { ?>
+                $('.ubahStatus').prop('disabled', true)
+        <?php }
+        } ?>
+
     }
 </script>
