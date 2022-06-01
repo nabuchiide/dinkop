@@ -79,18 +79,18 @@ class KegiatanModel
         $query = " UPDATE kegiatan
                     SET
                         nama_kegiatan   =:nama_kegiatan, 
-                        organisasi          =:organisasi, 
+                        organisasi      =:organisasi, 
                         tanggal         =:tanggal, 
                         keterangan      =:keterangan
                     WHERE
-                        id =:id
+                        id_kegiatan =:id_kegiatan
                 ";
         $this->db->query($query);
         $this->db->bind('nama_kegiatan', $data['nama_kegiatan']);
         $this->db->bind('organisasi', $data['organisasi']);
         $this->db->bind('tanggal', $data['tanggal']);
         $this->db->bind('keterangan', $data['keterangan']);
-        $this->db->bind('id', $data['id']);
+        $this->db->bind('id_kegiatan', $data['id']);
 
         $this->db->execute();
         return $this->db->rowCount();
@@ -102,11 +102,11 @@ class KegiatanModel
                     SET
                         status   =:status
                     WHERE
-                        id =:id
+                        id_kegiatan =:id_kegiatan
                 ";
         $this->db->query($query);
         $this->db->bind('status', $status);
-        $this->db->bind('id', $id);
+        $this->db->bind('id_kegiatan', $id);
 
         $this->db->execute();
         return $this->db->rowCount();
@@ -114,17 +114,17 @@ class KegiatanModel
 
     public function getOneData($id)
     {
-        $this->db->query(" SELECT * from kegiatan WHERE id =:id ");
-        $this->db->bind('id', $id);
+        $this->db->query(" SELECT * from kegiatan WHERE id_kegiatan =:id_kegiatan ");
+        $this->db->bind('id_kegiatan', $id);
         return $this->db->single();
     }
 
     public function hapusData($id)
     {
-        $query = " DELETE FROM kegiatan WHERE id =:id;
+        $query = " DELETE FROM kegiatan WHERE id_kegiatan =:id_kegiatan;
                  ";
         $this->db->query($query);
-        $this->db->bind('id', $id);
+        $this->db->bind('id_kegiatan', $id);
         $this->db->execute();
         return $this->db->rowCount();
     }

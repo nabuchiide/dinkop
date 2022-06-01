@@ -38,13 +38,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">No. Rekening</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Kode Rekening</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="text" value="" id="no_rekening" name="no_rekening" placeholder="no rekening" maxlength="20">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">Keterangan</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Uraian</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" name="keterangan" id="keterangan" cols="30" rows="10"></textarea>
                             </div>
@@ -70,7 +70,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
-                                <th>No Rekening</th>
+                                <th>Kode Rekening</th>
                                 <th>Uraian</th>
                                 <th>Debit</th>
                                 <th>Aksi</th>
@@ -90,12 +90,12 @@
                                     <td><?= $pemasukan['keterangan']; ?></td>
                                     <td><?= $pemasukan['nominal']; ?></td>
                                     <td>
-                                        <a href="<?= BASEURL; ?>/pemasukan/hapus/<?= $pemasukan['id']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
+                                        <a href="<?= BASEURL; ?>/pemasukan/hapus/<?= $pemasukan['id_anggaran']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
                                             <span>
                                                 Hapus
                                             </span>
                                         </a>
-                                        <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id']; ?>">
+                                        <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id_anggaran']; ?>">
                                             <span>
                                                 Ubah
                                             </span>
@@ -128,7 +128,7 @@
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
-                    $('#id_anggaran').val(data.id);
+                    $('#id_anggaran').val(data.id_anggran);
                     console.log(data.id);
                     $('#tanggal').val(data.tanggal);
                     $('#nominal').val(data.nominal);

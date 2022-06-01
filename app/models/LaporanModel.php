@@ -30,7 +30,7 @@ class LaporanModel
                             WHEN a.type_anggaran = 1 THEN a.nominal 
                             ELSE '-' 
                         END as debit 
-                    FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id 
+                    FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id_kegiatan
                     WHERE 
                         type_anggaran in (:type_anggaran) ORDER BY tanggal DESC";
         $this->db->query($query);
@@ -73,7 +73,7 @@ class LaporanModel
                             WHEN a.type_anggaran = 1 THEN a.nominal 
                             ELSE '-' 
                         END as debit 
-                    FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id 
+                    FROM anggaran a LEFT JOIN kegiatan k on a.id_kegiatan = k.id_kegiatan
                     WHERE 
                         type_anggaran in ('1','0') and a.tanggal Like :month ORDER BY tanggal DESC";
         $this->db->query($query);

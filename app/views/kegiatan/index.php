@@ -86,7 +86,7 @@
                                         <td><?= $no; ?></td>
                                         <td><?= $data['tanggal']; ?></td>
                                         <td>
-                                            <a href="#" class="getDetail" data-id="<?= $data['id']; ?>" data-toggle="modal" data-target="#dataModal">
+                                            <a href="#" class="getDetail" data-id="<?= $data['id_kegiatan']; ?>" data-toggle="modal" data-target="#dataModal">
                                                 <span>
                                                     <?= $data['nama_kegiatan']; ?>
                                                 </span>
@@ -95,12 +95,12 @@
                                         <td><?= $data['organisasi']; ?></td>
                                         <td><?= $data['status']; ?></td>
                                         <td>
-                                            <a href="<?= BASEURL; ?>/kegiatan/hapus/<?= $data['id']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
+                                            <a href="<?= BASEURL; ?>/kegiatan/hapus/<?= $data['id_kegiatan']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
                                                 <span>
                                                     Hapus
                                                 </span>
                                             </a>
-                                            <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $data['id']; ?>">
+                                            <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $data['id_kegiatan']; ?>">
                                                 <span>
                                                     Ubah
                                                 </span>
@@ -165,16 +165,17 @@
 
             $('.getUbah').on('click', function() {
                 const id = $(this).data('id')
+                console.log(id);
                 $.ajax({
                     url: '<?= BASEURL; ?>/kegiatan/getUbah',
                     data: {
                         id: id
                     },
                     method: 'post',
-                    dataType: 'json',
+                    // dataType: 'json',
                     success: function(data) {
                         console.log(data);
-                        $('#id_kegiatan').val(data.id);
+                        $('#id_kegiatan').val(data.id_kegiatan);
                         $('#nama_kegiatan').val(data.nama_kegiatan);
                         $('#organisasi').val(data.organisasi);
                         $('#tanggal').val(data.tanggal);
