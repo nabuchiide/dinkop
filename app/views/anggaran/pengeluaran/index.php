@@ -181,7 +181,7 @@ $dataKegiatan       = $data['kegiatan'];
                         var function_save = "saveDataElement('" + inner_data + "')";
                         var function_connfirmation = "hapusData(" + element.id + ");"
                         data_load += '<tr>'
-                        data_load += '    <td><input class="form-control" value="' + element.id_anggaran + '" type="hidden" name="id" id="" >' + num + '</td>'
+                        data_load += '    <td><input class="form-control" value="' + element.id_anggaran + '" type="hidden" name="id_anggaran" id="" >' + num + '</td>'
                         data_load += '    <td class="dataInput"><input class="form-control" value="' + element.tanggal + '" type="date" name="tanggal" id="" placeholder="tanggal" readonly="readonly"></td>'
                         data_load += '    <td class="dataInput"><input class="form-control" value="' + element.no_rekening + '" type="text" name="no_rekening" id="" placeholder="nomor rekening"></td>'
                         data_load += '    <td class="dataInput"><input class="form-control" value="' + element.keterangan + '" type="text" name="keterangan" id="" placeholder="keterangan" required ></td>'
