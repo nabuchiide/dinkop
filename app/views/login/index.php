@@ -51,10 +51,20 @@
                             </div>
                             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                                 <form action="login/login_process" method="POST">
-                                    
-                                    <div class="divider d-flex align-items-center my-4">
-                                        <p class="text-center fw-bold mx-3 mb-0"> <img src="<?= BASEURL ?>/assets/images/bappeda-logo.png" height="100" alt="logo"></p>
+                                    <div class="devider d-flex align-items-left my-4">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class=""> <img src="<?= BASEURL ?>/assets/images/bappeda-logo.png" height="100" alt="logo"></p>
+                                            </div>
+                                            <div class="col-lg-8  justify-content-center">
+                                                <center>
+                                                    <h2>LOGIN</h2>
+                                                    <h4>Pemasukan dan pengeluaran Kas Dinkop</h4>
+                                                </center>
+                                            </div>
+                                        </div>
                                     </div>
+
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
