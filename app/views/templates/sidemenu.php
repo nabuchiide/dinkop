@@ -89,7 +89,12 @@
                                     <span> Dashboard</span>
                                 </a>
                             </li>
-
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-bullseye"></i> <span> Kegiatan </span> <span class="float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="<?= BASEURL ?>/pengeluaran">Pengeluaran</a></li>
+                                </ul>
+                            </li>
                             <li class="menu-title">Laporan Kas</li>
 
                             <li class="has_sub">
@@ -120,7 +125,6 @@
                                 <ul class="list-unstyled">
                                     <li><a href="<?= BASEURL ?>/kegiatan">kegiatan</a></li>
                                     <li><a href="<?= BASEURL ?>/pemasukan">Pemasukan</a></li>
-                                    <li><a href="<?= BASEURL ?>/pengeluaran">Pengeluaran</a></li>
                                 </ul>
                             </li>
 
