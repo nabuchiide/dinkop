@@ -125,8 +125,8 @@
                 <label for="example-text-input" class="col-sm-5 col-form-label d-flex justify-content-around" style="text-decoration: underline;"> <?= $data['nama_Bendahara']['nama_pegawai']; ?></label>
             </div>
             <div class="row">
-                <label for="example-text-input" class="col-sm-5 col-form-label d-flex justify-content-around">NIP. <?= $data['nama_KPA']['no_pegawai']; ?></label>
-                <label for="example-text-input" class="col-sm-5 col-form-label d-flex justify-content-around">NIP. <?= $data['nama_Bendahara']['no_pegawai']; ?></label>
+                <label for="example-text-input" class="col-sm-5 col-form-label d-flex justify-content-around">NIP. <?= $data['nama_KPA']['nip']; ?></label>
+                <label for="example-text-input" class="col-sm-5 col-form-label d-flex justify-content-around">NIP. <?= $data['nama_Bendahara']['nip']; ?></label>
             </div>
             <br>
         </div>

@@ -24,11 +24,11 @@
                 <div class="card-body">
                     <h4 class="mt-0 header-title">Input Data User</h4>
                     <form action="<?= BASEURL; ?>/user/tambah" method="post" class="form-enter" onsubmit="" id="formInsertData">
-                        <!-- SELECT `id`, `user_name`, `password`, `user_type`, `no_pegawai` FROM `user` WHERE 1 -->
+                        <!-- SELECT `id`, `user_name`, `password`, `user_type`, `nip` FROM `user` WHERE 1 -->
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">User Name</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="hidden" value="" id="id_user" name="id" placeholder="user name">
+                                <input class="form-control" type="hidden" value="" id="id_user" name="id_user" placeholder="user name">
                                 <input class="form-control" type="text" value="" id="user_name" name="user_name" placeholder="user name">
                             </div>
                         </div>
@@ -45,6 +45,7 @@
                                 <select class="form-control" id="user_type" name="user_type">
                                     <option value="">Select Type</option>
                                     <option value="<?= KEPALA_USR ?>">PPTK</option>
+                                    <option value="<?= PENGGUNA_USR ?>">Pengguna Anggaran</option>
                                     <option value="<?= BENDAHARA_USR ?>">Bendahara</option>
                                     <option value="<?= ADMIN_USR ?>">Admin</option>
                                 </select>
@@ -53,8 +54,8 @@
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">No Pegawai</label>
                             <div class="col-sm-8">
-                                <input class="form-control" type="text" value="" id="no_pegawai" placeholder="nomor pegawai" readonly>
-                                <input class="form-control" type="hidden" value="" id="no_pegawai_hide" name="no_pegawai" placeholder="nomor pegawai">
+                                <input class="form-control" type="text" value="" id="nip" placeholder="nomor pegawai" readonly>
+                                <input class="form-control" type="hidden" value="" id="nip_hide" name="nip" placeholder="nomor pegawai">
                             </div>
                             <div class="col-sm-2">
                                 <button class="btn btn-primary waves-effect waves-light" type="button" data-toggle="modal" data-target="#dataModal"> search </button>
@@ -96,21 +97,17 @@
                                     <td><?= $data['user_type']; ?></td>
                                     <td><?= $data['nama_pegawai']; ?></td>
                                     <td>
-                                        <a href="<?= BASEURL; ?>/user/hapus/<?= $data['id']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
+                                        <a href="<?= BASEURL; ?>/user/hapus/<?= $data['id_user']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
                                             <span>
                                                 Hapus
                                             </span>
                                         </a>
-                                        <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $data['id']; ?>">
+                                        <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $data['id_user']; ?>">
                                             <span>
                                                 Ubah
                                             </span>
                                         </a>
-                                        <!-- <a href="<?= BASEURL; ?>/user/detail/<?= $data['id']; ?>" class="">
-                                        <span>
-                                            Detail
-                                        </span>
-                                    </a>  -->
+                                         
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -149,9 +146,9 @@
                             <tr>
                                 <td><?= $no; ?></td>
                                 <td>
-                                    <a href="#" class="getNomorPegawai" data-nomor="<?= $data['no_pegawai']; ?>" data-dismiss="modal">
+                                    <a href="#" class="getNomorPegawai" data-nomor="<?= $data['nip']; ?>" data-dismiss="modal">
                                         <span>
-                                            <?= $data['no_pegawai']; ?>
+                                            <?= $data['nip']; ?>
                                         </span>
                                     </a>
                                 </td>
@@ -175,7 +172,6 @@
 
             $('.getUbah').on('click', function() {
                 const id = $(this).data('id')
-                console.log(id);
                 $.ajax({
                     url: '<?= BASEURL; ?>/user/getUbah/',
                     data: {
@@ -193,12 +189,12 @@
                     },
                     success: function(data) {
                         console.log(data);
-                        $('#id_user').val(data.id);
+                        $('#id_user').val(data.id_user);
                         $('#user_name').val(data.user_name);
                         $('#password').val(data.password);
                         $('#user_type').val(data.user_type);
-                        $('#no_pegawai').val(data.no_pegawai);
-                        $('#no_pegawai_hide').val(data.no_pegawai);
+                        $('#nip').val(data.nip);
+                        $('#nip_hide').val(data.nip);
 
                         $(".card-body form").attr('action', '<?= BASEURL; ?>/user/ubah')
                         $('.card-body form button[type=submit]').html('Ubah Data')
@@ -211,10 +207,10 @@
 
             $('.getNomorPegawai').on('click', function() {
                 const nomor = $(this).data('nomor');
-                $('#no_pegawai').val(nomor)
-                $('#no_pegawai_hide').val(nomor)
-                $('#dataModal').modal('no_pegawai');
-                $('#dataModal').modal('no_pegawai_hide');
+                $('#nip').val(nomor)
+                $('#nip_hide').val(nomor)
+                $('#dataModal').modal('nip');
+                $('#dataModal').modal('nip_hide');
             })
         })
 
@@ -238,7 +234,7 @@
                 return
 
             }
-            if ($('#no_pegawai_hide').val() == "") {
+            if ($('#nip_hide').val() == "") {
                 $("#message").html(message('gagal', 'diubah atau ditambahkan, data yang di isi harus lengkap', 'danger',
                     'User'));
                 return

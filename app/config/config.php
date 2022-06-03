@@ -13,12 +13,15 @@ define('DB_NAME','dinkop');
 define('KEPALA','1');
 define('BENDAHARA','2');
 define('STAF','3');
+define('PENGGUNA','4');
 
 //level user
 define('KEPALA_USR','1');
 define('BENDAHARA_USR','2');
 define('ADMIN_USR','3');
 define('MASTER_USR','0');
+define('PENGGUNA_USR','4');
+
 
 //status
 define('WAITING','0');

@@ -23,19 +23,19 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="mt-0 header-title">Input Data Pegawai</h4>
-                    <!-- SELECT `id`, `nama_pegawai`, `alamat`, `no_pegawai`, `agama` FROM `pegawai` WHERE 1 -->
+                    <!-- SELECT `id`, `nama_pegawai`, `alamat`, `nip`, `agama` FROM `pegawai` WHERE 1 -->
                     <form action="<?= BASEURL; ?>/pegawai/tambah" method="post" class="form-enter" id="formInputData">
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="hidden" value="" id="id_pegawai" name="id" placeholder="">
+                                <input class="form-control" type="hidden" value="" id="id_pegawai" name="id_pegawai" placeholder="">
                                 <input class="form-control" type="text" value="" id="nama_pegawai" name="nama_pegawai" placeholder="nama pegawai">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">NIP</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" value="" id="no_pegawai" name="no_pegawai" placeholder="nomor pegawai">
+                                <input class="form-control" type="text" value="" id="nip" name="nip" placeholder="nomor pegawai">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -45,6 +45,7 @@
                                     <option value="">Select Jabatan</option>
                                     <option value="<?= KEPALA ?>">PPTK</option>
                                     <option value="<?= BENDAHARA ?>">Bendahara</option>
+                                    <option value="<?= PENGGUNA ?>">Pengguna Anggaran</option>
                                     <option value="<?= STAF ?>">Staff</option>
                                 </select>
                             </div>
@@ -81,25 +82,21 @@
                         <tbody>
                             <?php foreach ($data['pegawai'] as $data) : ?>
                                 <tr>
-                                    <td><?= $data['no_pegawai']; ?></td>
+                                    <td><?= $data['nip']; ?></td>
                                     <td><?= $data['nama_pegawai']; ?></td>
                                     <td><?= $data['jabatan']; ?></td>
                                     <td>
-                                        <a href="<?= BASEURL; ?>/pegawai/hapus/<?= $data['id']; ?>/<?= $data['jabatan'] ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
+                                        <a href="<?= BASEURL; ?>/pegawai/hapus/<?= $data['id_pegawai']; ?>/<?= $data['jabatan'] ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
                                             <span>
                                                 Hapus
                                             </span>
                                         </a>
-                                        <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $data['id']; ?>">
+                                        <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $data['id_pegawai']; ?>">
                                             <span>
                                                 Ubah
                                             </span>
                                         </a>
-                                        <!-- <a href="<?= BASEURL; ?>/pegawai/detail/<?= $data['id']; ?>" class="">
-                                        <span>
-                                            Detail
-                                        </span>
-                                    </a>  -->
+                                       
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -130,9 +127,10 @@
                 method: 'post',
                 dataType: 'json',
                 success: function(data) {
-                    $("#id_pegawai").val(data.id);
+                    console.log(data.id_pegawai);
+                    $("#id_pegawai").val(data.id_pegawai);
                     $("#nama_pegawai").val(data.nama_pegawai);
-                    $("#no_pegawai").val(data.no_pegawai);
+                    $("#nip").val(data.nip);
                     $("#jabatan").val(data.jabatan);
 
                     $(".card-body form").attr('action', '<?= BASEURL; ?>/pegawai/ubah')
@@ -148,7 +146,7 @@
             $("#message").html(message('gagal', 'diubah atau ditambahkan, data yang di isi harus lengkap', 'danger', 'Pegawai'));
             return
         }
-        if ($('#no_pegawai').val() == "") {
+        if ($('#nip').val() == "") {
             $("#message").html(message('gagal', 'diubah atau ditambahkan, data yang di isi harus lengkap', 'danger', 'Pegawai'));
             return
         }

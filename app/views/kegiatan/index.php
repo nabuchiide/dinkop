@@ -172,7 +172,7 @@
                         id: id
                     },
                     method: 'post',
-                    // dataType: 'json',
+                    dataType: 'json',
                     success: function(data) {
                         console.log(data);
                         $('#id_kegiatan').val(data.id_kegiatan);

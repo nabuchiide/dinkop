@@ -27,7 +27,7 @@
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">Tanggal</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="hidden" value="" id="id_anggaran" name="id">
+                                <input class="form-control" type="hidden" value="" id="id_anggaran" name="id_anggaran">
                                 <input class="form-control" type="date" value="" id="tanggal" name="tanggal" placeholder="tanggal">
                             </div>
                         </div>
@@ -128,8 +128,8 @@
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
-                    $('#id_anggaran').val(data.id_anggran);
-                    console.log(data.id);
+                    $('#id_anggaran').val(data.id_anggaran);
+                    console.log(data.id_anggaran);
                     $('#tanggal').val(data.tanggal);
                     $('#nominal').val(data.nominal);
                     $('#no_rekening').val(data.no_rekening);

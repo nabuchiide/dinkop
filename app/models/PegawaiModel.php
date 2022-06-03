@@ -13,7 +13,7 @@ class PegawaiModel
     public function getAllData()
     {
         $allData = [];
-        $this->db->query(" SELECT * FROM pegawai ORDER BY Id DESC ");
+        $this->db->query(" SELECT * FROM pegawai ORDER BY id_pegawai  DESC ");
         $allData = $this->db->resultset();
         for ($i = 0; $i < count($allData); $i++) {
             $jabatan_loop = $allData[$i]['jabatan'];
@@ -23,6 +23,8 @@ class PegawaiModel
                 $jabatan_loop = "Bendahara";
             }else if ($jabatan_loop == STAF) {
                 $jabatan_loop = "Staff";
+            }else if ($jabatan_loop == PENGGUNA){
+                $jabatan_loop = "Pengguna Anggaran";
             }else{
                 $jabatan_loop = "Tidak ada jabatan";
             }
@@ -33,7 +35,7 @@ class PegawaiModel
 
     public function getOneData($id)
     {
-        $this->db->query('select * from pegawai where id=:id');
+        $this->db->query('select * from pegawai where id_pegawai =:id');
         $this->db->bind('id', $id);
         return $this->db->single();
     }
@@ -42,11 +44,11 @@ class PegawaiModel
     {
         $query = " INSERT INTO pegawai
                     VALUES
-                    ('', :nama_pegawai, :no_pegawai, :jabatan) 
+                    ('', :nama_pegawai, :nip, :jabatan) 
                 ";
         $this->db->query($query);
         $this->db->bind('nama_pegawai', $data['nama_pegawai']);
-        $this->db->bind('no_pegawai', $data['no_pegawai']);
+        $this->db->bind('nip', $data['nip']);
         $this->db->bind('jabatan', $data['jabatan']);
 
         $this->db->execute();
@@ -67,16 +69,16 @@ class PegawaiModel
     {
         $query = " UPDATE pegawai SET 
                         nama_pegawai    =:nama_pegawai,
-                        no_pegawai      =:no_pegawai,
+                        nip             =:nip,
                         jabatan         =:jabatan
                     WHERE 
-                        id=:id
+                        id_pegawai =:id_pegawai
                 ";
         $this->db->query($query);
         $this->db->bind('nama_pegawai', $data['nama_pegawai']);
-        $this->db->bind('no_pegawai', $data['no_pegawai']);
+        $this->db->bind('nip', $data['nip']);
         $this->db->bind('jabatan', $data['jabatan']);
-        $this->db->bind('id', $data['id']);
+        $this->db->bind('id_pegawai', $data['id_pegawai']);
 
         $this->db->execute();
         return $this->db->rowCount();
@@ -84,21 +86,21 @@ class PegawaiModel
 
     public function getDataByJabatan($jabatan)
     {
-        $this->db->query("  SELECT nama_pegawai, no_pegawai FROM pegawai WHERE jabatan =:jabatan ORDER BY id DESC limit 1 ");
+        $this->db->query("  SELECT nama_pegawai, nip FROM pegawai WHERE jabatan =:jabatan ORDER BY id_pegawai DESC limit 1 ");
         $this->db->bind('jabatan', $jabatan);
         return $this->db->single();
     }
 
 
-    public function countNoPegawai($no_pegawai){
-        $this->db->query("  SELECT count(*) AS CountData FROM pegawai WHERE no_pegawai =:no_pegawai ");
-        $this->db->bind('no_pegawai', $no_pegawai);
+    public function countNoPegawai($nip){
+        $this->db->query("  SELECT count(*) AS CountData FROM pegawai WHERE nip =:nip ");
+        $this->db->bind('nip', $nip);
         return $this->db->single();
     }
 
     public function getNamaByJabatan($jabatan)
     {
-        $this->db->query("  SELECT nama_pegawai, no_pegawai FROM pegawai WHERE jabatan =:jabatan ORDER BY id DESC limit 1 ");
+        $this->db->query("  SELECT nama_pegawai, nip FROM pegawai WHERE jabatan =:jabatan ORDER BY id_pegawai DESC limit 1 ");
         $this->db->bind('jabatan', $jabatan);
         return $this->db->single();
     }
