@@ -46,7 +46,7 @@
                                 <td><?= $pemasukan['kredit']; ?></td>
                                 <td><?= $pemasukan['status_desc']; ?></td>
                                 <td>
-                                    <button class="ubahStatus btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id']; ?>" data-status="<?= $pemasukan['status'] ?>">
+                                    <button class="ubahStatus btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id_anggaran']; ?>" data-status="<?= $pemasukan['status'] ?>">
                                         <span>
                                             Ubah Status
                                         </span>
