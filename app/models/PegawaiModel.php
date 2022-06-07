@@ -55,11 +55,11 @@ class PegawaiModel
         return $this->db->rowCount();
     }
 
-    public function hapus($id)
+    public function hapus($id_pegawai)
     {
-        $query = " DELETE  FROM pegawai WHERE id=:id ";
+        $query = " DELETE  FROM pegawai WHERE id_pegawai=:id_pegawai ";
         $this->db->query($query);
-        $this->db->bind('id', $id);
+        $this->db->bind('id_pegawai', $id_pegawai);
 
         $this->db->execute();
         return $this->db->rowCount();
