@@ -34,7 +34,7 @@ class Laporan extends Controller
     public function summary()
     {
         $data['judul'] = 'Laporan Summary';
-        $data['nama_KPA'] = $this->model('PegawaiModel')->getDataByJabatan(KEPALA);
+        $data['nama_KPA'] = $this->model('PegawaiModel')->getDataByJabatan(PENGGUNA);
         $data['nama_Bendahara'] = $this->model('PegawaiModel')->getDataByJabatan(BENDAHARA);
         $this->view('templates/header', $data);
         $this->view('templates/sidemenu');
@@ -73,7 +73,7 @@ class Laporan extends Controller
     {
         $data['judul'] = 'Laporan Summary';
         $data['bulan'] = $this->convertMonth($month);
-        $data['nama_KPA'] = $this->model('PegawaiModel')->getDataByJabatan(KEPALA);
+        $data['nama_KPA'] = $this->model('PegawaiModel')->getDataByJabatan(PENGGUNA);
         $data['nama_Bendahara'] = $this->model('PegawaiModel')->getDataByJabatan(BENDAHARA);
         $data['anggaran'] = $this->model("LaporanModel")->getLaporanSummary($month);
         $data['totalPemasukanSampaiBulanLalu'] = $this->model("LaporanModel")->getTotalSaldoSampaiBulanLalu($month, UANG_MASUK);
