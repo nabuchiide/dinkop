@@ -174,7 +174,7 @@
                         pengeluaranSampaiBulanLalu = result.totalPengeluaranSampaiBulanLalu.totalAnggaran
                         totalSaldoBulanLau = parseInt(pemasukanSampaiBulanLalu) - parseInt(pengeluaranSampaiBulanLalu)
                         $('#total-pemasukan-sampai-bulan-lalu').html(numberWithCommas(pemasukanSampaiBulanLalu))
-                        $('#total-pengeluaran-sampai-bulan-lalu').html(numberWithCommas(pemasukanSampaiBulanLalu))
+                        $('#total-pengeluaran-sampai-bulan-lalu').html(numberWithCommas(pengeluaranSampaiBulanLalu))
 
                         totalPemasukanKeseluruhan = parseInt(pemasukanBulanIni) + parseInt(pemasukanSampaiBulanLalu)
                         totalPengeluranKeseluruhan = parseInt(pengeluaranBulanIni) + parseInt(pengeluaranSampaiBulanLalu)
