@@ -1,3 +1,6 @@
+<?php
+$dataKegiatan = $data['kegiatan'];
+?>
 <div class="page-content-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -29,6 +32,17 @@
                             <div class="col-sm-10">
                                 <input class="form-control" type="hidden" value="" id="id_anggaran" name="id_anggaran">
                                 <input class="form-control" type="date" value="" id="tanggal" name="tanggal" placeholder="tanggal">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Kegiatan</label>
+                            <div class="col-sm-10">
+                                <select id="id_kegiatan" name="id_kegiatan" class="form-control">
+                                    <option>-- Pilih Kegiatan --</option>
+                                    <?php foreach ($dataKegiatan as $k) : ?>
+                                        <option value="<?= $k['id_kegiatan'] ?>"><?= $k['nama_kegiatan'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -73,6 +87,7 @@
                                 <th>Kode Rekening</th>
                                 <th>Uraian</th>
                                 <th>Debit</th>
+                                <th>Sisa</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -88,7 +103,8 @@
                                     <td><?= $pemasukan['tanggal']; ?></td>
                                     <td><?= $pemasukan['no_rekening']; ?></td>
                                     <td><?= $pemasukan['keterangan']; ?></td>
-                                    <td><?= $pemasukan['nominal']; ?></td>
+                                    <td><?= number_format($pemasukan['nominal']); ?></td>
+                                    <td><?= number_format($pemasukan['sisa']); ?></td>
                                     <td>
                                         <a href="<?= BASEURL; ?>/pemasukan/hapus/<?= $pemasukan['id_anggaran']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
                                             <span>
@@ -148,12 +164,12 @@
 
     function save_data() {
         if ($('#tanggal').val() == "") {
-            $("#message").html(message('gagal', 'diubah atau ditambahkan, Tanggal harus di isi', 'danger','Pemasukan'));
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, Tanggal harus di isi', 'danger', 'Pemasukan'));
             return
 
         }
         if ($('#nominal').val() == "") {
-            $("#message").html(message('gagal', 'diubah atau ditambahkan, nominal harus di isi', 'danger','Pemasukan'));
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, nominal harus di isi', 'danger', 'Pemasukan'));
             return
 
         }

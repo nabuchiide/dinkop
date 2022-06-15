@@ -4,7 +4,8 @@ class Pemasukan extends Controller
     public function index()
     {
         $data['judul'] = 'Pemasukan';
-        $data['anggaran'] = $this->model("AnggaranModel")->getDataPemasukan();
+        $data['anggaran'] = $this->model("AnggaranModel")->getRemainingAnggaranByKegiatan();
+        $data['kegiatan'] = $this->model("KegiatanModel")->getAllDataStatusWiting();
         $this->view('templates/header', $data);
         $this->view('templates/sidemenu');
         $this->view('anggaran/pemasukan/index', $data);
@@ -14,7 +15,6 @@ class Pemasukan extends Controller
     public function tambah()
     {
         $_POST['type_anggaran'] = UANG_MASUK;
-        $_POST['id_kegiatan'] = 0;
         $_POST['status'] = WAITING;
         $saveData = $_POST;
 
@@ -32,7 +32,6 @@ class Pemasukan extends Controller
     public function ubah()
     {
         $_POST['type_anggaran'] = UANG_MASUK;
-        $_POST['id_kegiatan'] = 0;
         $_POST['status'] = WAITING;
         $updateData = $_POST;
 
@@ -47,7 +46,8 @@ class Pemasukan extends Controller
         }
     }
 
-    public function hapus($id){
+    public function hapus($id)
+    {
         if ($this->model("AnggaranModel")->hapusData($id) > 0) {
             Flasher::setFlash('berhasil', 'dihapus', 'success', 'Pemasukan');
             header('Location: ' . BASEURL . '/pemasukan');

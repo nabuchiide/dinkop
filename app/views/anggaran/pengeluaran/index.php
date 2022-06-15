@@ -33,6 +33,7 @@ $dataKegiatan       = $data['kegiatan'];
                             <input class="form-control" type="hidden" value="" id="nama_kegiatan_hide" name="nama_kegiatan">
                             <input class="form-control" type="hidden" value="" id="id_kegiatan">
                             <input class="form-control" type="hidden" value="" id="tanggal_kegiatan">
+                            <input class="form-control" type="hidden" value="" id="batasPengeluaran">
                         </div>
                         <div class="col-sm-2">
                             <button class="btn btn-primary waves-effect waves-light" type="button" data-toggle="modal" data-target="#dataModal"> search </button>
@@ -152,6 +153,32 @@ $dataKegiatan       = $data['kegiatan'];
         })
     });
 
+    function getBatasPengeluaran(id) {
+        $.ajax({
+            url: '<?= BASEURL; ?>/pengeluaran/getBatasPengeluaran',
+            data: {
+                id: id
+            },
+            method: 'post',
+            dataType: 'json',
+            beforeSend: function() {
+                $.blockUI({
+                    message: null
+                });
+            },
+            complete: function() {
+                $.unblockUI();
+            },
+            success: function(data) {
+                $('#batasPengeluaran').val(data.sisa);
+            },
+            error: function(data) {
+                console.log(data);
+                console.log("ERROR");
+            }
+        });
+    }
+
     function reloadTabelAnggaran(id) {
         $.ajax({
             url: '<?= BASEURL; ?>/pengeluaran/getByKegitanAnggaran',
@@ -195,6 +222,8 @@ $dataKegiatan       = $data['kegiatan'];
                 }
 
                 $('#resultAnggaran').html(data_load);
+
+                getBatasPengeluaran(id);
             },
             error: function() {
                 console.log("ERROR");
@@ -322,12 +351,17 @@ $dataKegiatan       = $data['kegiatan'];
     }
 
     function validationData(elementName, elementValue) {
+        batasPengeluaran =  $('#batasPengeluaran').val();
         if (elementName == 'keterangan' && elementValue == '') {
             $("#message").html(message('gagal', 'diubah atau ditambahkan, Keterangan harus di isi', 'danger', 'pengeluaran'));
             return false;
 
         } else if (elementName == 'nominal' && (elementValue == '' || elementValue < 1)) {
             $("#message").html(message('gagal', 'diubah atau ditambahkan, Kredit harus di isi', 'danger', 'pengeluaran'));
+            return false;
+
+        } else if (elementName == 'nominal' && (elementValue == '' || elementValue < batasPengeluaran)) {
+            $("#message").html(message('gagal', 'diubah atau ditambahkan, Kredit tidak boleh melebihi '+ batasPengeluaran.toLocaleString('en-US'), 'danger', 'pengeluaran'));
             return false;
 
         } else {
@@ -366,4 +400,6 @@ $dataKegiatan       = $data['kegiatan'];
         allert_load += '</div>'
         return allert_load
     }
+
+
 </script>

@@ -18,6 +18,12 @@ class Pengeluaran extends Controller
         echo json_encode($allData);
     }
 
+    public function getBatasPengeluaran(){
+        $allData = [];
+        $allData = $this->model("AnggaranModel")->getBatasPengeluaran($_POST['id']);
+        echo json_encode($allData);
+    }
+
     public function tambah()
     {
         $_POST['type_anggaran'] = UANG_KELUAR;

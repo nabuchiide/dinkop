@@ -166,6 +166,34 @@ class AnggaranModel
         $this->db->execute();
         return $this->db->rowCount();
     }
+
+    public function getRemainingAnggaranByKegiatan()
+    {
+        $query = "SELECT
+                    a.*, 
+                    ((SELECT sum(nominal) FROM dinkop.anggaran a where type_anggaran = 1) - (SELECT sum(nominal) FROM dinkop.anggaran a WHERE type_anggaran = 0)) AS sisa 
+                FROM 
+                    dinkop.kegiatan k JOIN dinkop.anggaran a ON k.id_kegiatan = a.id_kegiatan
+                WHERE a.type_anggaran = ".UANG_MASUK."
+                GROUP BY k.id_kegiatan ";
+        $this->db->query($query);
+        $allData = $this->db->resultset();
+        return $allData;
+    }
+
+    public function getBatasPengeluaran($id_kegiatan)
+    {
+        $query = "SELECT
+                    ((SELECT sum(nominal) FROM dinkop.anggaran a where type_anggaran = 1) - (SELECT sum(nominal) FROM dinkop.anggaran a WHERE type_anggaran = 0)) AS sisa 
+                FROM 
+                    dinkop.kegiatan k JOIN dinkop.anggaran a ON k.id_kegiatan = a.id_kegiatan
+                WHERE a.type_anggaran = 1 and k.id_kegiatan =:id_kegiatan
+                GROUP BY k.id_kegiatan ";
+        $this->db->query($query);
+        $this->db->bind('id_kegiatan', $id_kegiatan);
+        $allData = $this->db->single();
+        return $allData;
+    }
 }
 
 /* define('WAITING','0');
