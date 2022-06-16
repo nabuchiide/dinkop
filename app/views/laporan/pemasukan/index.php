@@ -71,8 +71,8 @@
         $('.ubahStatus').on('click', function() {
             var id = $(this).data('id')
             var status = modifyStatus($(this).data('status'));
-            console.log(id);
-            console.log(status);
+            // console.log(id);
+            // console.log(status);
             $.ajax({
                 url: '<?= BASEURL; ?>/laporan/ubahstatusbyid',
                 data: {

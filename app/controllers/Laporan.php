@@ -57,6 +57,8 @@ class Laporan extends Controller
     {
         $id = $_POST['id'];
         $status = $_POST['status'];
+        $idKegiatan = $this->model("AnggaranModel")->getIdKegiatanByIdAnggaran($id);
+        $resultStatusKegiatan = $this->model("KegiatanModel")->ubahStatus($idKegiatan["id_kegiatan"], FINISH);
         $result = $this->model("AnggaranModel")->ubahStatusById($id, $status);
         echo json_encode($result);
     }
