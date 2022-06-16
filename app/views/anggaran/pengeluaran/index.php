@@ -360,7 +360,7 @@ $dataKegiatan       = $data['kegiatan'];
             $("#message").html(message('gagal', 'diubah atau ditambahkan, Kredit harus di isi', 'danger', 'pengeluaran'));
             return false;
 
-        } else if (elementName == 'nominal' && (elementValue == '' || elementValue < batasPengeluaran)) {
+        } else if (elementName == 'nominal' && (elementValue == '' || elementValue > batasPengeluaran)) {
             $("#message").html(message('gagal', 'diubah atau ditambahkan, Kredit tidak boleh melebihi '+ batasPengeluaran.toLocaleString('en-US'), 'danger', 'pengeluaran'));
             return false;
 

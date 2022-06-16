@@ -29,6 +29,7 @@ class Pengeluaran extends Controller
         $_POST['type_anggaran'] = UANG_KELUAR;
         $_POST['status'] = WAITING;
         $saveData = $_POST;
+        $this->model("KegiatanModel")->ubahStatus($_POST['id_kegiatan'], PROCESS);
         if ($this->model("AnggaranModel")->tambahData($saveData) > 0) {
             Flasher::setFlash('berhasil', 'ditambahkan', 'success', 'pengeluaran');
             header('Location: ' . BASEURL . '/pengeluaran');
@@ -45,6 +46,7 @@ class Pengeluaran extends Controller
         $_POST['type_anggaran'] = UANG_KELUAR;
         $_POST['status'] = WAITING;
         $updateData = $_POST;
+        $this->model("KegiatanModel")->ubahStatus($_POST['id_kegiatan'], PROCESS);
         if ($this->model("AnggaranModel")->ubahData($updateData) > 0) {
             Flasher::setFlash('berhasil', 'ditambahkan', 'success', 'pengeluaran');
             header('Location: ' . BASEURL . '/pengeluaran');
