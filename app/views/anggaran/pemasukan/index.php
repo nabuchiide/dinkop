@@ -52,7 +52,7 @@ $dataKegiatan = $data['kegiatan'];
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">Kode Rekening</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">No Rekening</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="text" value="" id="no_rekening" name="no_rekening" placeholder="no rekening" maxlength="20">
                             </div>
@@ -84,7 +84,8 @@ $dataKegiatan = $data['kegiatan'];
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
-                                <th>Kode Rekening</th>
+                                <th>Nama Kegiatan</th>
+                                <th>No Rekening</th>
                                 <th>Uraian</th>
                                 <th>Debit</th>
                                 <th>Sisa</th>
@@ -101,6 +102,7 @@ $dataKegiatan = $data['kegiatan'];
                                 <tr>
                                     <td><?= $no; ?></td>
                                     <td><?= $pemasukan['tanggal']; ?></td>
+                                    <td><?= $pemasukan['nama_kegiatan']; ?></td>
                                     <td><?= $pemasukan['no_rekening']; ?></td>
                                     <td><?= $pemasukan['keterangan']; ?></td>
                                     <td><?= number_format($pemasukan['nominal']); ?></td>

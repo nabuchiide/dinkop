@@ -170,7 +170,7 @@ class AnggaranModel
     public function getRemainingAnggaranByKegiatan()
     {
         $query = "SELECT
-                    a.*, 
+                    a.*, k.nama_kegiatan,
                     ((SELECT sum(nominal) FROM dinkop.anggaran a where type_anggaran = 1) - (SELECT sum(nominal) FROM dinkop.anggaran a WHERE type_anggaran = 0)) AS sisa 
                 FROM 
                     dinkop.kegiatan k JOIN dinkop.anggaran a ON k.id_kegiatan = a.id_kegiatan

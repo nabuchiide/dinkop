@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-7 mt-0 mb-1 text-white">
                             <h4 class="mb-0">DINKOP</h4>
-                            <h6 class="mt-0" style="font-size: 1rem;">Dinas Koperasi dan UMKN</h6>
+                            <h6 class="mt-0" style="font-size: 1rem;">Dinas Koperasi dan UMK</h6>
                         </div>
                     </div>
                 </div>
