@@ -101,6 +101,10 @@
                             <th><span id="total-pemasukan-keseluruhan"><?= number_format($totalPemasukanKeseluruhan); ?></th>
                             <th><span id="total-pengeluaran-keseluruhan"><?= number_format($totalPengeluranKeseluruhan); ?></th>
                         </tr>
+                        <tr>
+                            <th colspan="5">Saldo</th>
+                            <th colspan="2"><span id="total-saldo-keseluruhan"><?= number_format($totalSaldoKeseluruhan); ?></th>
+                        </tr>
                     </tfoot>
                 </table>
 

@@ -95,6 +95,10 @@
                             <th><span id="total-pemasukan-keseluruhan"></th>
                             <th><span id="total-pengeluaran-keseluruhan"></th>
                         </tr>
+                        <tr>
+                            <th colspan="5">Saldo</th>
+                            <th colspan="2"><span id="total-saldo-keseluruhan"></th>
+                        </tr>
                     </tfoot>
                 </table>
             </div>
@@ -160,8 +164,6 @@
                             data_load += '    <td> - </td>'
                             data_load += '    <td> - </td>'
                             data_load += '    <td> - </td>'
-                            data_load += '    <td> - </td>'
-                            data_load += '    <td> - </td>'
                             data_load += '</tr>'
                         }
                         pemasukanBulanIni = result.totalPemasukanBulanIni.totalAnggaran
@@ -181,6 +183,7 @@
                         totalSaldoKeseluruhan = parseInt(totalPemasukanKeseluruhan) - parseInt(totalPengeluranKeseluruhan)
                         $('#total-pemasukan-keseluruhan').html(numberWithCommas(totalPemasukanKeseluruhan))
                         $('#total-pengeluaran-keseluruhan').html(numberWithCommas(totalPengeluranKeseluruhan))
+                        $('#total-saldo-keseluruhan').html(numberWithCommas(totalSaldoKeseluruhan))
 
                         $('#summaryResult').html(data_load)
                         $('#bulan_search').html(convertMonth($('#month_data').val()))
