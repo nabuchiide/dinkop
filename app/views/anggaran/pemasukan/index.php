@@ -96,31 +96,41 @@ $dataKegiatan = $data['kegiatan'];
                             <?php
                             $dataPemasukan = $data['anggaran'];
                             $no = 0;
+                            $pengeluaran = 0;
+                            $pengeluaranArr = [];
                             foreach ($dataPemasukan as $pemasukan) :
                                 $no++;
+                                if ($pemasukan['type_anggaran'] == UANG_MASUK) {
+                                    $pengeluaranArr = $this->model("AnggaranModel")->getTotalPengeluaran($pemasukan['id_kegiatan']);
+                                    if($pengeluaranArr != 0){
+                                        $pengeluaran = $pengeluaranArr['total_sum'];
+                                    }else{
+                                        $pengeluaran = 0;
+                                    }
                             ?>
-                                <tr>
-                                    <td><?= $no; ?></td>
-                                    <td><?= $pemasukan['tanggal']; ?></td>
-                                    <td><?= $pemasukan['nama_kegiatan']; ?></td>
-                                    <td><?= $pemasukan['no_rekening']; ?></td>
-                                    <td><?= $pemasukan['keterangan']; ?></td>
-                                    <td><?= number_format($pemasukan['nominal']); ?></td>
-                                    <td><?= number_format($pemasukan['sisa']); ?></td>
-                                    <td>
-                                        <a href="<?= BASEURL; ?>/pemasukan/hapus/<?= $pemasukan['id_anggaran']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
-                                            <span>
-                                                Hapus
-                                            </span>
-                                        </a>
-                                        <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id_anggaran']; ?>">
-                                            <span>
-                                                Ubah
-                                            </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                                    <tr>
+                                        <td><?= $no; ?></td>
+                                        <td><?= $pemasukan['tanggal']; ?></td>
+                                        <td><?= $pemasukan['nama_kegiatan']; ?></td>
+                                        <td><?= $pemasukan['no_rekening']; ?></td>
+                                        <td><?= $pemasukan['keterangan']; ?></td>
+                                        <td><?= number_format($pemasukan['debit']); ?></td>
+                                        <td><?= number_format($pemasukan['debit']-$pengeluaran); ?></td>
+                                        <td>
+                                            <a href="<?= BASEURL; ?>/pemasukan/hapus/<?= $pemasukan['id_anggaran']; ?>" class="btn btn-danger waves-effect waves-light" onclick="return confirm('Yakin?');">
+                                                <span>
+                                                    Hapus
+                                                </span>
+                                            </a>
+                                            <a href="#" class="getUbah btn btn-primary waves-effect waves-light" data-id="<?= $pemasukan['id_anggaran']; ?>">
+                                                <span>
+                                                    Ubah
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                            <?php }
+                            endforeach; ?>
                         </tbody>
                     </table>
                 </div>

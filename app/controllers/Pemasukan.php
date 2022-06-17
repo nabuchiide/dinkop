@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 class Pemasukan extends Controller
 {
     public function index()

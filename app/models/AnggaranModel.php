@@ -169,13 +169,26 @@ class AnggaranModel
 
     public function getRemainingAnggaranByKegiatan()
     {
-        $query = "SELECT
-                    a.*, k.nama_kegiatan,
-                    ((SELECT sum(nominal) FROM anggaran a where type_anggaran = 1) - (SELECT sum(nominal) FROM anggaran a WHERE type_anggaran = 0)) AS sisa 
-                FROM 
-                    kegiatan k JOIN anggaran a ON k.id_kegiatan = a.id_kegiatan
-                WHERE a.type_anggaran = ".UANG_MASUK."
-                GROUP BY k.id_kegiatan ";
+        $query = "SELECT 
+                    a.*,k.*,
+                    CASE
+                        WHEN a.no_rekening is null THEN '-'
+                        WHEN a.no_rekening = '' THEN '-'
+                        ELSE a.no_rekening
+                    END as no_rekening_result,  
+                    CASE
+                        WHEN k.nama_kegiatan is null THEN '-'
+                        ELSE k.nama_kegiatan
+                    END as nama_kegiatan_result, 
+                    CASE 
+                        WHEN a.type_anggaran = 0 THEN a.nominal 
+                        ELSE '0'
+                    END as kredit, 
+                    CASE 
+                        WHEN a.type_anggaran = 1 THEN a.nominal 
+                        ELSE '0' 
+                    END as debit 
+                FROM dinkop.anggaran a LEFT JOIN dinkop.kegiatan k on a.id_kegiatan = k.id_kegiatan ";
         $this->db->query($query);
         $allData = $this->db->resultset();
         return $allData;
@@ -187,7 +200,7 @@ class AnggaranModel
                     ((SELECT sum(nominal) FROM anggaran a where type_anggaran = 1) - (SELECT sum(nominal) FROM anggaran a WHERE type_anggaran = 0)) AS sisa 
                 FROM 
                     kegiatan k JOIN anggaran a ON k.id_kegiatan = a.id_kegiatan
-                WHERE a.type_anggaran = 1 and k.id_kegiatan =:id_kegiatan
+                WHERE a.type_anggaran = ".UANG_MASUK." and k.id_kegiatan =:id_kegiatan
                 GROUP BY k.id_kegiatan ";
         $this->db->query($query);
         $this->db->bind('id_kegiatan', $id_kegiatan);
@@ -195,8 +208,23 @@ class AnggaranModel
         return $allData;
     }
 
-    public function getIdKegiatanByIdAnggaran($id_aggaran){
-        $query="SELECT DISTINCT id_kegiatan  from anggaran a where id_anggaran =:id_aggaran ";
+    public function getTotalPengeluaran($id_kegiatan)
+    {
+        $query = "SELECT
+                    sum(nominal) as total_sum
+                FROM 
+                    kegiatan k JOIN anggaran a ON k.id_kegiatan = a.id_kegiatan
+                WHERE a.type_anggaran = ".UANG_KELUAR." and k.id_kegiatan =:id_kegiatan
+                GROUP BY k.id_kegiatan ";
+        $this->db->query($query);
+        $this->db->bind('id_kegiatan', $id_kegiatan);
+        $allData = $this->db->single();
+        return (empty($allData))?$allData['total_sum'] = 0 : $allData;
+    }
+
+    public function getIdKegiatanByIdAnggaran($id_aggaran)
+    {
+        $query = "SELECT DISTINCT id_kegiatan  from anggaran a where id_anggaran =:id_aggaran ";
         $this->db->query($query);
         $this->db->bind('id_aggaran', $id_aggaran);
         $allData = $this->db->single();
